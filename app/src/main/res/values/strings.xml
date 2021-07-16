@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Nasa Pic of the Day</string>
+    <string name="main_welcome_msg">Welcome to the Nasa Pic of the Day App!</string>
+    <string name="main_welcome_back">Welcome back</string>
+</resources>
