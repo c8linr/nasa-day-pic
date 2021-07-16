@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NasaPicOfTheDay">
-        <activity android:name=".DownloadImage"></activity>
+        <activity android:name=".EmptyActivity"></activity>
+        <activity android:name=".DownloadImage" />
         <activity android:name=".NewImage" />
         <activity android:name=".SavedImages" />
         <activity android:name=".MainActivity">

@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewImage">
+    tools:context=".NewImage"
+    android:orientation="vertical"
+    android:paddingVertical="80sp">
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/new_select_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/new_select_date_button"/>
+    <TextView
+        android:id="@+id/new_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingVertical="20sp"
+        android:textSize="24sp"
+        android:text="@string/new_selected_date"/>
+    <Button
+        android:id="@+id/new_confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/new_confirm_button"
+        android:enabled="false"/>
+
+</LinearLayout>

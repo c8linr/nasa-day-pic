@@ -2,4 +2,15 @@
     <string name="app_name">Nasa Pic of the Day</string>
     <string name="main_welcome_msg">Welcome to the Nasa Pic of the Day App!</string>
     <string name="main_welcome_back">Welcome back</string>
+    <string name="default_image_name">Unnamed Image</string>
+    <string name="default_image_desc">No description</string>
+    <string name="fragment_edit_button">Edit Name</string>
+    <string name="fragment_delete_button">Delete Image</string>
+    <string name="new_select_date_button">Select Date</string>
+    <string name="new_selected_date">Date Selected:</string>
+    <string name="new_confirm_button">Confirm Download</string>
+    <string name="download_progress_label">Download in progress...</string>
+    <string name="download_name_image">Choose a name for the image (optional):</string>
+    <string name="download_image_name_field">Optional Name</string>
+    <string name="download_save_name_button">Save</string>
 </resources>
