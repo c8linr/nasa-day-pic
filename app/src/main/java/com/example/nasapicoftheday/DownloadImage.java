@@ -71,13 +71,14 @@ public class DownloadImage extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(Integer... ints) {
             Bitmap image = null;
+            String dateString = ints[2].toString() + "-" + ints[1].toString() + "-" + ints[0].toString();
 
             // Update the progress
             publishProgress(0);
 
             try {
                 // Connect to the NASA API to get the image's URL and title
-                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz");
+                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz&date=" + dateString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 InputStream response = conn.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
@@ -173,6 +174,7 @@ public class DownloadImage extends AppCompatActivity {
 
             // Display the image
             ImageView imageView = parentActivity.findViewById(R.id.download_image);
+            imageView.setMaxHeight(100);
             imageView.setImageBitmap(pic);
         }
 
