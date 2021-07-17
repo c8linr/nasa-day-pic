@@ -24,9 +24,8 @@ public class NewImage extends AppCompatActivity {
     /**
      * Object-level references that are needed both in the onCreate method and DatePickerFragment.onDateSet method
      */
-    private TextView dateSelected;
-    private Button confirmDateButton;
-    private Intent goToDownloadImage;
+    private static TextView dateSelected;
+    private static Button confirmDateButton;
 
     /**
      * The onCreate method creates the New Image activity and adds the functionality.
@@ -38,12 +37,15 @@ public class NewImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_image);
 
-        // Get a reference to the "Date Selected: " TextView and confirm Button
+        // Get a reference to the "Date Selected: " TextView to be modified by the Date Picker
         dateSelected = findViewById(R.id.new_date);
-        confirmDateButton = findViewById(R.id.new_confirm_button);
 
-        // Initialize the goToDownloadImage intent
-        goToDownloadImage = new Intent(this, DownloadImage.class);
+        // Set up the Confirm button
+        confirmDateButton = findViewById(R.id.new_confirm_button);
+        Intent goToDownloadImage = new Intent(this, DownloadImage.class);
+        confirmDateButton.setOnClickListener( (click) -> startActivity(goToDownloadImage));
+        // Just in case, disable the button. This should be redundant.
+        confirmDateButton.setEnabled(false);
 
         // Create the date picker dialog when the user selects the "select date" button
         Button selectDateButton = findViewById(R.id.new_select_date_button);
@@ -54,7 +56,7 @@ public class NewImage extends AppCompatActivity {
     /**
      * The DatePickerFragment class contains the functionality for the date picker used in the New Image Activity.
      */
-     class DatePickerFragment extends DialogFragment
+     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
          /**
@@ -88,7 +90,6 @@ public class NewImage extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateSelected.append(" " + getMonthName(month) + " " + dayOfMonth + ", " + year);
             confirmDateButton.setEnabled(true);
-            confirmDateButton.setOnClickListener( (click) -> startActivity(goToDownloadImage));
         }
 
         /**
