@@ -3,6 +3,7 @@ package com.example.nasapicoftheday;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,13 +21,6 @@ import java.util.Calendar;
  * @author Caitlin Ross
  */
 public class NewImage extends AppCompatActivity {
-
-    /**
-     * Object-level references that are needed both in the onCreate method and DatePickerFragment.onDateSet method
-     */
-    private static TextView dateSelected;
-    private static Button confirmDateButton;
-
     /**
      * The onCreate method creates the New Image activity and adds the functionality.
      *
@@ -38,10 +32,10 @@ public class NewImage extends AppCompatActivity {
         setContentView(R.layout.activity_new_image);
 
         // Get a reference to the "Date Selected: " TextView to be modified by the Date Picker
-        dateSelected = findViewById(R.id.new_date);
+        TextView dateSelected = findViewById(R.id.new_date);
 
         // Set up the Confirm button
-        confirmDateButton = findViewById(R.id.new_confirm_button);
+        Button confirmDateButton = findViewById(R.id.new_confirm_button);
         Intent goToDownloadImage = new Intent(this, DownloadImage.class);
         confirmDateButton.setOnClickListener( (click) -> startActivity(goToDownloadImage));
         // Just in case, disable the button. This should be redundant.
@@ -50,7 +44,53 @@ public class NewImage extends AppCompatActivity {
         // Create the date picker dialog when the user selects the "select date" button
         Button selectDateButton = findViewById(R.id.new_select_date_button);
         DialogFragment dateFragment = new DatePickerFragment();
-        selectDateButton.setOnClickListener( (click) -> dateFragment.show(getSupportFragmentManager(), "datePicker"));
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.setFragmentResultListener(DatePickerFragment.DATE_REQUEST_KEY, this, (requestKey, result) -> {
+        dateSelected.append(" " +
+                getMonthName(result.getInt(DatePickerFragment.MONTH_KEY)) +
+                " " +
+                result.getInt(DatePickerFragment.DAY_KEY) +
+                ", " +
+                result.getInt(DatePickerFragment.YEAR_KEY));
+        confirmDateButton.setEnabled(true);
+        });
+        selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
+    }
+
+    /**
+     * getMonthName returns the name of the month, given an integer from 0-11.
+     *
+     * @param month an integer from 0-11 representing a month
+     * @return the full name of the month, capitalized, or a blank string if the argument is invalid
+     */
+    private String getMonthName(int month) {
+        switch (month) {
+            case 0:
+                return "January";
+            case 1:
+                return "February";
+            case 2:
+                return "March";
+            case 3:
+                return "April";
+            case 4:
+                return "May";
+            case 5:
+                return "June";
+            case 6:
+                return "July";
+            case 7:
+                return "August";
+            case 8:
+                return "September";
+            case 9:
+                return "October";
+            case 10:
+                return "November";
+            case 11:
+                return "December";
+        }
+        return "";
     }
 
     /**
@@ -58,6 +98,14 @@ public class NewImage extends AppCompatActivity {
      */
      public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
+
+        /**
+         * Static constants to prevent errors when accessing the Bundle with the date
+         */
+         public static final String YEAR_KEY = "YEAR";
+         public static final String MONTH_KEY = "MONTH";
+         public static final String DAY_KEY = "DAY";
+         public static final String DATE_REQUEST_KEY = "REQUEST_DATE";
 
          /**
           * The onCreateDialog method creates the date picker dialog and auto-fills the current date.
@@ -79,7 +127,7 @@ public class NewImage extends AppCompatActivity {
         }
 
          /**
-          * The onDateSet method adds the selected date as a String to the dateSelected Textview and enables the confirmDate button.
+          * The onDateSet method creates a Bundle with the date as integers to be accessed by the host
           *
           * @param view the DatePicker object being used
           * @param year the year selected by the user
@@ -88,44 +136,12 @@ public class NewImage extends AppCompatActivity {
           */
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            dateSelected.append(" " + getMonthName(month) + " " + dayOfMonth + ", " + year);
-            confirmDateButton.setEnabled(true);
-        }
-
-        /**
-         * getMonthName returns the name of the month, given an integer from 0-11.
-         *
-         * @param month an integer from 0-11 representing a month
-         * @return the full name of the month, capitalized, or a blank string if the argument is invalid
-         */
-        private String getMonthName(int month) {
-            switch (month) {
-                case 0:
-                    return "January";
-                case 1:
-                    return "February";
-                case 2:
-                    return "March";
-                case 3:
-                    return "April";
-                case 4:
-                    return "May";
-                case 5:
-                    return "June";
-                case 6:
-                    return "July";
-                case 7:
-                    return "August";
-                case 8:
-                    return "September";
-                case 9:
-                    return "October";
-                case 10:
-                    return "November";
-                case 11:
-                    return "December";
-            }
-            return "";
+            // Create a bundle to be accessed through the FragmentManager that contains the date
+            Bundle result = new Bundle();
+            result.putInt(YEAR_KEY, year);
+            result.putInt(MONTH_KEY, month);
+            result.putInt(DAY_KEY, dayOfMonth);
+            getParentFragmentManager().setFragmentResult(DATE_REQUEST_KEY, result);
         }
     }
 }
