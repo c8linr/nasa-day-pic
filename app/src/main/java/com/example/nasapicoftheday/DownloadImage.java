@@ -174,7 +174,7 @@ public class DownloadImage extends AppCompatActivity {
 
             // Display the image
             ImageView imageView = parentActivity.findViewById(R.id.download_image);
-            imageView.setMaxHeight(100);
+            //imageView.setMaxHeight(100);
             imageView.setImageBitmap(pic);
         }
 
