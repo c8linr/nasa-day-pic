@@ -8,13 +8,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/main_welcome_msg"
+        android:id="@+id/welcome_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingVertical="40sp"
         android:textSize="44sp"
-        android:text="@string/main_welcome_msg" />
+        android:text="@string/welcome_msg" />
 
     <TextView
         android:id="@+id/welcome_name"
@@ -23,5 +23,17 @@
         android:gravity="center"
         android:paddingVertical="40sp"
         android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/welcome_new_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_new_button"/>
+
+    <Button
+        android:id="@+id/welcome_saved_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_saved_button"/>
 
 </LinearLayout>
