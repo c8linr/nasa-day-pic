@@ -12,11 +12,10 @@ import android.widget.Button;
  * @author Caitlin Ross
  */
 public class MainActivity extends AppCompatActivity {
-
     /**
-     * The onCreate method creates the Main Activity and adds the functionality.
+     * Creates the Main Activity and adds the functionality.
      *
-     * @param savedInstanceState a Bundle passed in when MainActivity is created
+     * @param savedInstanceState a Bundle passed in when the Main activity is created
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

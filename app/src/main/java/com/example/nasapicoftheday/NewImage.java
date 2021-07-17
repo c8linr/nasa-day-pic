@@ -22,9 +22,9 @@ import java.util.Calendar;
  */
 public class NewImage extends AppCompatActivity {
     /**
-     * The onCreate method creates the New Image activity and adds the functionality.
+     * Creates the New Image activity and adds the functionality.
      *
-     * @param savedInstanceState a Bundle passed in when the activity is created
+     * @param savedInstanceState a Bundle passed in when the New Image activity is created
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +46,22 @@ public class NewImage extends AppCompatActivity {
         DialogFragment dateFragment = new DatePickerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.setFragmentResultListener(DatePickerFragment.DATE_REQUEST_KEY, this, (requestKey, result) -> {
-        dateSelected.append(" " +
-                getMonthName(result.getInt(DatePickerFragment.MONTH_KEY)) +
-                " " +
-                result.getInt(DatePickerFragment.DAY_KEY) +
-                ", " +
-                result.getInt(DatePickerFragment.YEAR_KEY));
-        confirmDateButton.setEnabled(true);
+            int day = result.getInt(DatePickerFragment.DAY_KEY);
+            int month = result.getInt(DatePickerFragment.MONTH_KEY);
+            int year = result.getInt(DatePickerFragment.YEAR_KEY);
+            dateSelected.append(" " + getMonthName(month) +
+                " " + day +
+                ", " + year);
+            confirmDateButton.setEnabled(true);
+            goToDownloadImage.putExtra(DatePickerFragment.DAY_KEY, day);
+            goToDownloadImage.putExtra(DatePickerFragment.MONTH_KEY, month);
+            goToDownloadImage.putExtra(DatePickerFragment.YEAR_KEY, year);
         });
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
 
     /**
-     * getMonthName returns the name of the month, given an integer from 0-11.
+     * Returns the name of the month, given an integer from 0-11.
      *
      * @param month an integer from 0-11 representing a month
      * @return the full name of the month, capitalized, or a blank string if the argument is invalid
@@ -100,7 +103,7 @@ public class NewImage extends AppCompatActivity {
             implements DatePickerDialog.OnDateSetListener {
 
         /**
-         * Static constants to prevent errors when accessing the Bundle with the date
+         * Static constants are provided to prevent errors when accessing the Bundle with the date.
          */
          public static final String YEAR_KEY = "YEAR";
          public static final String MONTH_KEY = "MONTH";
@@ -108,7 +111,7 @@ public class NewImage extends AppCompatActivity {
          public static final String DATE_REQUEST_KEY = "REQUEST_DATE";
 
          /**
-          * The onCreateDialog method creates the date picker dialog and auto-fills the current date.
+          * Creates the date picker dialog and auto-fills the current date.
           *
           * @param savedInstanceState a Bundle passed in when the dialog is created
           * @return a new date picker dialog object, initialized with the current date
@@ -127,7 +130,7 @@ public class NewImage extends AppCompatActivity {
         }
 
          /**
-          * The onDateSet method creates a Bundle with the date as integers to be accessed by the host
+          * Creates a Bundle with the date as integers to be accessed by the host.
           *
           * @param view the DatePicker object being used
           * @param year the year selected by the user
