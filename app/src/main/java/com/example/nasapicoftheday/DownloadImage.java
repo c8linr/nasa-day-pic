@@ -6,9 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -39,11 +41,14 @@ public class DownloadImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_image);
 
+        // Get the Bundle with the date info
+        Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.PACKAGE_PREFIX + "DateSelected");
+        int day = dateBundle.getInt(NewImage.DatePickerFragment.DAY_KEY);
+        int month = dateBundle.getInt(NewImage.DatePickerFragment.MONTH_KEY);
+        int year = dateBundle.getInt(NewImage.DatePickerFragment.YEAR_KEY);
+
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
-        int day = savedInstanceState.getInt(NewImage.DatePickerFragment.DAY_KEY);
-        int month = savedInstanceState.getInt(NewImage.DatePickerFragment.MONTH_KEY);
-        int year = savedInstanceState.getInt(NewImage.DatePickerFragment.YEAR_KEY);
         query.execute(day, month, year);
     }
 
@@ -154,6 +159,10 @@ public class DownloadImage extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Bitmap pic) {
+            // Hide the "Download in progress..." message
+            TextView downloadInProgress = parentActivity.findViewById(R.id.download_progress_label);
+            downloadInProgress.setVisibility(View.INVISIBLE);
+
             // Update the name field's hint with the image's title
             EditText suggestedName = parentActivity.findViewById(R.id.download_image_name_field);
             suggestedName.setText(imageTitle);

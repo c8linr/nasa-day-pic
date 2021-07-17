@@ -21,6 +21,7 @@ import java.util.Calendar;
  * @author Caitlin Ross
  */
 public class NewImage extends AppCompatActivity {
+    public static final String PACKAGE_PREFIX = "com.example.nasapicoftheday";
     /**
      * Creates the New Image activity and adds the functionality.
      *
@@ -53,9 +54,11 @@ public class NewImage extends AppCompatActivity {
                 " " + day +
                 ", " + year);
             confirmDateButton.setEnabled(true);
-            goToDownloadImage.putExtra(DatePickerFragment.DAY_KEY, day);
-            goToDownloadImage.putExtra(DatePickerFragment.MONTH_KEY, month);
-            goToDownloadImage.putExtra(DatePickerFragment.YEAR_KEY, year);
+            Bundle dateBundle = new Bundle();
+            dateBundle.putInt(DatePickerFragment.DAY_KEY, day);
+            dateBundle.putInt(DatePickerFragment.MONTH_KEY, month);
+            dateBundle.putInt(DatePickerFragment.YEAR_KEY, year);
+            goToDownloadImage.putExtra(PACKAGE_PREFIX + "DateSelected", dateBundle);
         });
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
