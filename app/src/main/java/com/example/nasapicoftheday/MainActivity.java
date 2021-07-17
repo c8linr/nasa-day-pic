@@ -8,11 +8,14 @@ import android.widget.Button;
 
 /**
  * The MainActivity class contains the functionality for the welcome page.
+ *
  * @author Caitlin Ross
  */
 public class MainActivity extends AppCompatActivity {
 
     /**
+     * The onCreate method creates the Main Activity and adds the functionality.
+     *
      * @param savedInstanceState a Bundle passed in when MainActivity is created
      */
     @Override
