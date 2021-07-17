@@ -159,9 +159,13 @@ public class DownloadImage extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Bitmap pic) {
-            // Hide the "Download in progress..." message
+            // Remove the "Download in progress..." message
             TextView downloadInProgress = parentActivity.findViewById(R.id.download_progress_label);
-            downloadInProgress.setVisibility(View.INVISIBLE);
+            downloadInProgress.setVisibility(View.GONE);
+
+            // Remove the progress bar
+            ProgressBar progressBar = parentActivity.findViewById(R.id.download_progress_bar);
+            progressBar.setVisibility(View.GONE);
 
             // Update the name field's hint with the image's title
             EditText suggestedName = parentActivity.findViewById(R.id.download_image_name_field);
