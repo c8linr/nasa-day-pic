@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Creates the Main Activity and adds the functionality.
      *
-     * @param savedInstanceState a Bundle passed in when the Main activity is created
+     * @param savedInstanceState data supplied if the activity is being re-initialized, otherwise null
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

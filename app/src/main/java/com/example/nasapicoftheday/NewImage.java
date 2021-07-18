@@ -21,11 +21,15 @@ import java.util.Calendar;
  * @author Caitlin Ross
  */
 public class NewImage extends AppCompatActivity {
+    /**
+     * Static constant for the package prefix (could be placed elsewhere, but it's used here).
+     */
     public static final String PACKAGE_PREFIX = "com.example.nasapicoftheday";
+
     /**
      * Creates the New Image activity and adds the functionality.
      *
-     * @param savedInstanceState a Bundle passed in when the New Image activity is created
+     * @param savedInstanceState data supplied if the activity is being re-initialized, otherwise null
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +110,7 @@ public class NewImage extends AppCompatActivity {
             implements DatePickerDialog.OnDateSetListener {
 
         /**
-         * Static constants are provided to prevent errors when accessing the Bundle with the date.
+         * These static constants are provided to prevent errors when accessing the Bundle with the date.
          */
          public static final String YEAR_KEY = "YEAR";
          public static final String MONTH_KEY = "MONTH";

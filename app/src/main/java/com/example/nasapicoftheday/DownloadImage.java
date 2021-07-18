@@ -2,11 +2,13 @@ package com.example.nasapicoftheday;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,7 +36,7 @@ public class DownloadImage extends AppCompatActivity {
     /**
      * Creates the Download Image activity and adds the functionality.
      *
-     * @param savedInstanceState a Bundle passed in when the Download Image activity is created
+     * @param savedInstanceState data supplied if the activity is being re-initialized, otherwise null
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class DownloadImage extends AppCompatActivity {
     }
 
     /**
-     * The ImageRequest class handles the background API call to NASA
+     * The ImageRequest class handles the background API call to NASA.
      */
     static class ImageQuery extends AsyncTask<Integer, Integer, Bitmap> {
         private final AppCompatActivity parentActivity;
@@ -143,7 +145,7 @@ public class DownloadImage extends AppCompatActivity {
         }
 
         /**
-         * Updates the progress bar as progress is made on the download
+         * Updates the progress bar as progress is made on the download.
          *
          * @param values the values (0-100) indicating the progress
          */
@@ -154,7 +156,7 @@ public class DownloadImage extends AppCompatActivity {
         }
 
         /**
-         * Called when the task is finished executing
+         * Called when the task is finished executing.
          *
          * @param pic the downloaded image
          */
@@ -174,12 +176,18 @@ public class DownloadImage extends AppCompatActivity {
 
             // Display the image
             ImageView imageView = parentActivity.findViewById(R.id.download_image);
-            //imageView.setMaxHeight(100);
             imageView.setImageBitmap(pic);
+
+            // Enable the Save button
+            Button saveButton = parentActivity.findViewById(R.id.download_save_name_button);
+            saveButton.setEnabled(true);
+            Intent goToSavedImages = new Intent(parentActivity, SavedImages.class);
+            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages));
         }
 
         /**
-         * Helper method to determine if a file already exists
+         * Helper method to determine if a file already exists.
+         *
          * @param fileName the name of the file to verify
          * @return true if the file already exists
          */
