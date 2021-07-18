@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -162,6 +163,9 @@ public class DownloadImage extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Bitmap pic) {
+            //Use a Toast to inform the user that the download is complete
+            Toast.makeText(parentActivity, R.string.download_complete_msg, Toast.LENGTH_SHORT).show();
+
             // Remove the "Download in progress..." message
             TextView downloadInProgress = parentActivity.findViewById(R.id.download_progress_label);
             downloadInProgress.setVisibility(View.GONE);

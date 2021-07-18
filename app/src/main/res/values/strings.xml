@@ -15,4 +15,5 @@
     <string name="download_name_image">Choose a name for the image (optional):</string>
     <string name="download_image_name_field">Optional Name</string>
     <string name="download_save_name_button">Save</string>
+    <string name="download_complete_msg">Download complete</string>
 </resources>
