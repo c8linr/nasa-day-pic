@@ -25,10 +25,9 @@
 
     <ImageView
         android:id="@+id/download_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260sp"
+        android:layout_height="260sp"
         android:layout_gravity="center"
-        android:maxHeight="60sp"
         android:contentDescription="@string/default_image_desc"/>
 
     <TextView
