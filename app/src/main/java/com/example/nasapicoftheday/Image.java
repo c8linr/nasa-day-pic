@@ -1,10 +1,8 @@
 package com.example.nasapicoftheday;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -138,7 +136,7 @@ public class Image implements Serializable {
      */
     public String getFileName() { return fileName; }
 
-    public Bitmap loadImage(Activity parentActivity) {
+    public Bitmap loadImage(Context parentActivity) {
         if (imageRaster == null) {
             FileInputStream inputStream = null;
             try {
@@ -273,7 +271,7 @@ public class Image implements Serializable {
      * @param date the Date object to be converted
      * @return the String representation of the Date
      */
-    private static String getDateString(Date date) {
+    public static String getDateString(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
         return dateFormat.format(date);
     }
