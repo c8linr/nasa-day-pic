@@ -44,7 +44,7 @@ public class DownloadImage extends AppCompatActivity {
         setContentView(R.layout.activity_download_image);
 
         // Get the Bundle with the date info
-        Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.PACKAGE_PREFIX + "DateSelected");
+        Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
         int day = dateBundle.getInt(NewImage.DatePickerFragment.DAY_KEY);
         int month = dateBundle.getInt(NewImage.DatePickerFragment.MONTH_KEY);
         int year = dateBundle.getInt(NewImage.DatePickerFragment.YEAR_KEY);
@@ -60,6 +60,8 @@ public class DownloadImage extends AppCompatActivity {
     static class ImageQuery extends AsyncTask<Integer, Integer, Image> {
         /** The Activity calling the AsyncTask */
         private final AppCompatActivity parentActivity;
+
+        public static final String IMAGE_BUNDLE_KEY = "com.example.nasapicoftheday.DownloadedImage";
 
         public ImageQuery(AppCompatActivity context) {
             this.parentActivity = context;
@@ -181,7 +183,9 @@ public class DownloadImage extends AppCompatActivity {
             Button saveButton = parentActivity.findViewById(R.id.download_save_name_button);
             saveButton.setEnabled(true);
             Intent goToSavedImages = new Intent(parentActivity, SavedImages.class);
-            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages));
+            Bundle newImageBundle = new Bundle();
+            newImageBundle.putSerializable(IMAGE_BUNDLE_KEY, pic);
+            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages, newImageBundle));
         }
 
         /**

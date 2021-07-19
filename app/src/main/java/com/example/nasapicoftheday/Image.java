@@ -3,11 +3,15 @@ package com.example.nasapicoftheday;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,7 +19,7 @@ import java.util.GregorianCalendar;
 /**
  * The Image class contains the actual Image and relevant metadata.
  */
-public class Image {
+public class Image implements Serializable {
     /** A unique ID assigned to the image */
     private int id;
     /** The user-defined name of the image */
@@ -261,6 +265,17 @@ public class Image {
         cal.set(Calendar.DAY_OF_MONTH, day);
 
         return cal.getTime();
+    }
+
+    /**
+     * Converts a given Date object to a String
+     *
+     * @param date the Date object to be converted
+     * @return the String representation of the Date
+     */
+    private static String getDateString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+        return dateFormat.format(date);
     }
 
     /**

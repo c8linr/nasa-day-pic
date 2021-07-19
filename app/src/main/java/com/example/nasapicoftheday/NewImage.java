@@ -24,7 +24,7 @@ public class NewImage extends AppCompatActivity {
     /**
      * Static constant for the package prefix (could be placed elsewhere, but it's used here).
      */
-    public static final String PACKAGE_PREFIX = "com.example.nasapicoftheday";
+    public static final String DATE_BUNDLE_KEY = "com.example.nasapicoftheday.DateSelected";
 
     /**
      * Creates the New Image activity and adds the functionality.
@@ -62,7 +62,7 @@ public class NewImage extends AppCompatActivity {
             dateBundle.putInt(DatePickerFragment.DAY_KEY, day);
             dateBundle.putInt(DatePickerFragment.MONTH_KEY, month);
             dateBundle.putInt(DatePickerFragment.YEAR_KEY, year);
-            goToDownloadImage.putExtra(PACKAGE_PREFIX + "DateSelected", dateBundle);
+            goToDownloadImage.putExtra(DATE_BUNDLE_KEY, dateBundle);
         });
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
