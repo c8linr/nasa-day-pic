@@ -19,14 +19,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 /**
  * The DownloadImage class contains the functionality for the Download Image activity.
@@ -52,15 +51,15 @@ public class DownloadImage extends AppCompatActivity {
 
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
-        query.execute(day, month, year);
+        query.execute(year, month, day);
     }
 
     /**
      * The ImageRequest class handles the background API call to NASA.
      */
-    static class ImageQuery extends AsyncTask<Integer, Integer, Bitmap> {
+    static class ImageQuery extends AsyncTask<Integer, Integer, Image> {
+        /** The Activity calling the AsyncTask */
         private final AppCompatActivity parentActivity;
-        private String imageTitle = "New Image";
 
         public ImageQuery(AppCompatActivity context) {
             this.parentActivity = context;
@@ -72,9 +71,9 @@ public class DownloadImage extends AppCompatActivity {
          * @return the downloaded image
          */
         @Override
-        protected Bitmap doInBackground(Integer... ints) {
-            Bitmap image = null;
-            String dateString = ints[2].toString() + "-" + ints[1].toString() + "-" + ints[0].toString();
+        protected Image doInBackground(Integer... ints) {
+            Image newImage = null;
+            String dateString = ints[0].toString() + "-" + ints[1].toString() + "-" + ints[2].toString();
 
             // Update the progress
             publishProgress(0);
@@ -99,7 +98,7 @@ public class DownloadImage extends AppCompatActivity {
                 // Convert the response to a JSON Object and extract the image's URL and title
                 JSONObject nasaResponse = new JSONObject(sb.toString());
                 URL imageURL = new URL(nasaResponse.getString("url"));
-                imageTitle = nasaResponse.getString("title");
+                String imageTitle = nasaResponse.getString("title");
                 String imageFile = imageTitle + ".jpeg";
 
                 // Close the current connection before opening the next
@@ -109,20 +108,13 @@ public class DownloadImage extends AppCompatActivity {
                 // Update the progress
                 publishProgress(50);
 
-                // Connect to the image's URL, unless it already exists on disk
-                if(fileExists(imageFile)) {
-                    FileInputStream inputStream = null;
-                    try {
-                        inputStream = parentActivity.openFileInput(imageFile);
-                    } catch (FileNotFoundException fe) {
-                        fe.printStackTrace();
-                    }
-                    image = BitmapFactory.decodeStream(inputStream);
-                } else {
+                // Connect to the image's URL if it doesn't exist on disk
+                Bitmap bitmap = null;
+                if(!fileExists(imageFile)) {
                     conn = (HttpURLConnection) imageURL.openConnection();
                     conn.connect();
                     if (conn.getResponseCode() == 200) {
-                        image = BitmapFactory.decodeStream(conn.getInputStream());
+                        bitmap = BitmapFactory.decodeStream(conn.getInputStream());
                     }
                 }
                 // Update the progress
@@ -130,11 +122,14 @@ public class DownloadImage extends AppCompatActivity {
 
                 // Save the image
                 FileOutputStream outputStream = parentActivity.openFileOutput(imageFile, MODE_PRIVATE);
-                if (image != null) {
-                    image.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+                if (bitmap != null) {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
                 }
                 outputStream.flush();
                 outputStream.close();
+
+                // Make a new Image object
+                newImage = new Image(imageTitle, new Date(), Image.getDateFromInts(ints[0], ints[1], ints[2]), imageFile);
 
                 // Update the progress
                 publishProgress(100);
@@ -142,7 +137,7 @@ public class DownloadImage extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return image;
+            return newImage;
         }
 
         /**
@@ -162,7 +157,7 @@ public class DownloadImage extends AppCompatActivity {
          * @param pic the downloaded image
          */
         @Override
-        protected void onPostExecute(Bitmap pic) {
+        protected void onPostExecute(Image pic) {
             //Use a Toast to inform the user that the download is complete
             Toast.makeText(parentActivity, R.string.download_complete_msg, Toast.LENGTH_SHORT).show();
 
@@ -176,11 +171,11 @@ public class DownloadImage extends AppCompatActivity {
 
             // Update the name field's hint with the image's title
             EditText suggestedName = parentActivity.findViewById(R.id.download_image_name_field);
-            suggestedName.setText(imageTitle);
+            suggestedName.setText(pic.getTitle());
 
             // Display the image
             ImageView imageView = parentActivity.findViewById(R.id.download_image);
-            imageView.setImageBitmap(pic);
+            imageView.setImageBitmap(pic.loadImage(parentActivity));
 
             // Enable the Save button
             Button saveButton = parentActivity.findViewById(R.id.download_save_name_button);
