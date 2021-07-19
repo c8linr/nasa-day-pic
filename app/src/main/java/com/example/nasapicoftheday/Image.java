@@ -3,6 +3,7 @@ package com.example.nasapicoftheday;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,6 +36,12 @@ public class Image implements Serializable {
 
     /** Static field used to assign unique IDs */
     private static int nextID = 0;
+    public static final String ID_KEY = "ImageID";
+    public static final String NAME_KEY = "ImageName";
+    public static final String TITLE_KEY = "ImageTitle";
+    public static final String DL_DATE_KEY = "DownloadDate";
+    public static final String NASA_DATE_KEY = "ImageDate";
+    public static final String FILE_NAME_KEY = "FileName";
 
     /**
      * Constructor used when downloading a new Image with no user-given name.
@@ -156,6 +163,24 @@ public class Image implements Serializable {
      */
     public void setName(String newName) {
         name = newName;
+    }
+
+    /**
+     * Returns a Bundle object containing most of the Image object's data.
+     *
+     * @return a Bundle object
+     */
+    public Bundle getBundle() {
+        Bundle b = new Bundle();
+
+        b.putInt(ID_KEY, id);
+        b.putString(NAME_KEY, name);
+        b.putString(TITLE_KEY, title);
+        b.putString(DL_DATE_KEY, getDateString(downloadDate));
+        b.putString(NASA_DATE_KEY, getDateString(imageDate));
+        b.putString(FILE_NAME_KEY, fileName);
+
+        return b;
     }
 
     /**

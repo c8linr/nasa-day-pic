@@ -183,9 +183,7 @@ public class DownloadImage extends AppCompatActivity {
             Button saveButton = parentActivity.findViewById(R.id.download_save_name_button);
             saveButton.setEnabled(true);
             Intent goToSavedImages = new Intent(parentActivity, SavedImages.class);
-            Bundle newImageBundle = new Bundle();
-            newImageBundle.putSerializable(IMAGE_BUNDLE_KEY, pic);
-            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages, newImageBundle));
+            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages, pic.getBundle()));
         }
 
         /**

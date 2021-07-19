@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The SavedImages class contains the functionality for the Saved Images activity
@@ -37,7 +38,18 @@ public class SavedImages extends AppCompatActivity {
         // Check if an Image object was sent in via a Bundle
         Bundle newImageBundle = this.getIntent().getExtras();
         if (newImageBundle != null) {
-            imageArrayList.add((Image)newImageBundle.getSerializable(DownloadImage.ImageQuery.IMAGE_BUNDLE_KEY));
+            int imageId = newImageBundle.getInt(Image.ID_KEY);
+            String imageName = newImageBundle.getString(Image.NAME_KEY);
+            String imageTitle = newImageBundle.getString(Image.TITLE_KEY);
+            String imageDownloadDate = newImageBundle.getString(Image.DL_DATE_KEY);
+            String imageNasaDate = newImageBundle.getString(Image.NASA_DATE_KEY);
+            String imageFileName = newImageBundle.getString(Image.FILE_NAME_KEY);
+            try {
+                Image newImage = new Image(imageId, imageName, imageTitle, imageDownloadDate, imageNasaDate, imageFileName);
+                imageArrayList.add(newImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // When database is implemented, load the images from there
@@ -51,7 +63,7 @@ public class SavedImages extends AppCompatActivity {
         imageListView.setOnItemClickListener( (parent, view, pos, id) -> {
             Image selectedImage = imageArrayList.get(pos);
             Bundle imageData = new Bundle();
-            imageData.putSerializable(VIEW_IMAGE_BUNDLE_KEY, selectedImage);
+            //imageData.putSerializable(VIEW_IMAGE_BUNDLE_KEY, selectedImage);
             Intent viewImage = new Intent(SavedImages.this, EmptyActivity.class);
             startActivity(viewImage, imageData);
         });
