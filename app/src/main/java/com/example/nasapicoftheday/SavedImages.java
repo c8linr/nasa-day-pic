@@ -20,7 +20,6 @@ import java.util.Date;
  */
 public class SavedImages extends AppCompatActivity {
     ArrayList<Image> imageArrayList;
-    public static final String VIEW_IMAGE_BUNDLE_KEY = "ViewImageBundle";
 
     /**
      * Creates the Saved Images activity and add the functionality
@@ -62,10 +61,8 @@ public class SavedImages extends AppCompatActivity {
         // Add a listener to the List View to load the fragment/empty activity when an image is clicked
         imageListView.setOnItemClickListener( (parent, view, pos, id) -> {
             Image selectedImage = imageArrayList.get(pos);
-            Bundle imageData = new Bundle();
-            //imageData.putSerializable(VIEW_IMAGE_BUNDLE_KEY, selectedImage);
             Intent viewImage = new Intent(SavedImages.this, EmptyActivity.class);
-            startActivity(viewImage, imageData);
+            startActivity(viewImage, selectedImage.getBundle());
         });
     }
 
