@@ -11,9 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ImageOpener extends SQLiteOpenHelper {
 
-    /**
-     * Several static constants that hold database identifiers (database name, table name, column names, etc).
-     */
+    /** Several static constants that hold database identifiers (database name, table name, column names, etc). */
     private final static String DATABASE_NAME = "ImageDB";
     private final static int VERSION_NUM = 1;
     private final static String TABLE = "SAVED_IMAGES";

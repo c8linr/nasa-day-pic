@@ -123,15 +123,15 @@ public class SavedImages extends AppCompatActivity {
             Image i = imageList.get(position);
 
             // Set the thumbnail image
-            ImageView thumbnail = parent.findViewById(R.id.image_list_thumbnail);
+            ImageView thumbnail = convertView.findViewById(R.id.image_list_thumbnail);
             thumbnail.setImageBitmap(i.loadImage(parent.getContext()));
 
             // Set the image date (the day it was NASA's Image of the Day)
-            TextView imageDate = parent.findViewById(R.id.image_list_date);
+            TextView imageDate = convertView.findViewById(R.id.image_list_date);
             imageDate.setText(i.getImageDate().toString());
 
             // Set the image name (user-defined)
-            TextView imageName = parent.findViewById(R.id.image_list_name);
+            TextView imageName = convertView.findViewById(R.id.image_list_name);
             imageName.setText(i.getName());
 
             return convertView;
