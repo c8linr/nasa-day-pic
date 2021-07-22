@@ -1,8 +1,10 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.nasapicoftheday.R;
 
 public class EmptyActivity extends AppCompatActivity {
 

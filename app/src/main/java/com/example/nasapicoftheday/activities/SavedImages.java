@@ -1,4 +1,4 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.nasapicoftheday.datamodel.Image;
+import com.example.nasapicoftheday.R;
 
 import java.util.ArrayList;
 

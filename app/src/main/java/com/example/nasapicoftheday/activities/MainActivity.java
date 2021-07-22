@@ -1,10 +1,12 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.example.nasapicoftheday.R;
 
 /**
  * The MainActivity class contains the functionality for the welcome page.

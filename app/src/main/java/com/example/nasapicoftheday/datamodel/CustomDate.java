@@ -1,4 +1,4 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.datamodel;
 
 import android.os.Bundle;
 

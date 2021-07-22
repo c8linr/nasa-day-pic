@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NasaPicOfTheDay">
-        <activity android:name=".EmptyActivity" />
-        <activity android:name=".DownloadImage" />
-        <activity android:name=".NewImage" />
-        <activity android:name=".SavedImages" />
+        <activity android:name=".activities.EmptyActivity" />
+        <activity android:name=".activities.DownloadImage" />
+        <activity android:name=".activities.NewImage" />
+        <activity android:name=".activities.SavedImages" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

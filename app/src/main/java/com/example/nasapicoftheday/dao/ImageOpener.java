@@ -1,4 +1,4 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

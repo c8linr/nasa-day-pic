@@ -1,9 +1,11 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.datamodel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
+import com.example.nasapicoftheday.datamodel.CustomDate;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

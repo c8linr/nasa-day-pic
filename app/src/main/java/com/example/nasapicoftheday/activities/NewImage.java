@@ -1,4 +1,4 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.example.nasapicoftheday.datamodel.CustomDate;
+import com.example.nasapicoftheday.R;
 
 import java.util.Calendar;
 

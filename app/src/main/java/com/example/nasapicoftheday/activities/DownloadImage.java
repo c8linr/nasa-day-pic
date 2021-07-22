@@ -1,4 +1,4 @@
-package com.example.nasapicoftheday;
+package com.example.nasapicoftheday.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nasapicoftheday.datamodel.CustomDate;
+import com.example.nasapicoftheday.datamodel.Image;
+import com.example.nasapicoftheday.R;
 
 import org.json.JSONObject;
 
