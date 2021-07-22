@@ -174,7 +174,7 @@ public class CustomDate {
      * @return true if the argument is in the valid range
      */
     private static boolean isValidYear(int y) {
-        return (y > 1900 && y < Calendar.getInstance().get(Calendar.YEAR));
+        return (y > 1900 && y <= Calendar.getInstance().get(Calendar.YEAR));
     }
 
     /**

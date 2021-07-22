@@ -253,7 +253,7 @@ public class DownloadImage extends AppCompatActivity {
          * @return a Bitmap of the image
          */
         private Bitmap openImage(String fileName) {
-            FileInputStream inputStream = null;
+            FileInputStream inputStream;
             Bitmap bitmap = null;
             try {
                 inputStream = parentActivity.openFileInput(fileName);
