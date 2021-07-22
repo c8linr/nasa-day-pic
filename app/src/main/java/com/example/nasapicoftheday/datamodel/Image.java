@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import com.example.nasapicoftheday.datamodel.CustomDate;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -143,13 +141,12 @@ public class Image {
 
     public Bitmap loadImage(Context parentActivity) {
         if (imageRaster == null) {
-            FileInputStream inputStream = null;
             try {
-                inputStream = parentActivity.openFileInput(fileName);
+                FileInputStream inputStream = parentActivity.openFileInput(fileName);
+                imageRaster = BitmapFactory.decodeStream(inputStream);
             } catch (FileNotFoundException fe) {
                 fe.printStackTrace();
             }
-            imageRaster = BitmapFactory.decodeStream(inputStream);
         }
         return imageRaster;
     }
