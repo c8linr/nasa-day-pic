@@ -13,13 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * The SavedImages class contains the functionality for the Saved Images activity
  */
 public class SavedImages extends AppCompatActivity {
-    ArrayList<Image> imageArrayList;
+    ArrayList<Image> imageList;
 
     /**
      * Creates the Saved Images activity and add the functionality
@@ -32,7 +31,7 @@ public class SavedImages extends AppCompatActivity {
         setContentView(R.layout.activity_saved_images);
 
         // Initialize the array list of images
-        imageArrayList = new ArrayList<>();
+        imageList = new ArrayList<>();
 
         // Check if an Image object was sent in via a Bundle
         Bundle newImageBundle = this.getIntent().getExtras();
@@ -45,7 +44,7 @@ public class SavedImages extends AppCompatActivity {
             String imageFileName = newImageBundle.getString(Image.FILE_NAME_KEY);
             try {
                 Image newImage = new Image(imageId, imageName, imageTitle, imageDownloadDate, imageNasaDate, imageFileName);
-                imageArrayList.add(newImage);
+                imageList.add(newImage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -60,7 +59,7 @@ public class SavedImages extends AppCompatActivity {
 
         // Add a listener to the List View to load the fragment/empty activity when an image is clicked
         imageListView.setOnItemClickListener( (parent, view, pos, id) -> {
-            Image selectedImage = imageArrayList.get(pos);
+            Image selectedImage = imageList.get(pos);
             Intent viewImage = new Intent(SavedImages.this, EmptyActivity.class);
             startActivity(viewImage, selectedImage.getBundle());
         });
@@ -78,7 +77,7 @@ public class SavedImages extends AppCompatActivity {
          */
         @Override
         public int getCount() {
-            return imageArrayList.size();
+            return imageList.size();
         }
 
         /**
@@ -89,7 +88,7 @@ public class SavedImages extends AppCompatActivity {
          */
         @Override
         public Object getItem(int position) {
-            return imageArrayList.get(position);
+            return imageList.get(position);
         }
 
         /**
@@ -100,7 +99,7 @@ public class SavedImages extends AppCompatActivity {
          */
         @Override
         public long getItemId(int position) {
-            return imageArrayList.get(position).getId();
+            return imageList.get(position).getId();
         }
 
         /**
@@ -115,21 +114,24 @@ public class SavedImages extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             // Inflate the layout for the list item
             LayoutInflater inflater = getLayoutInflater();
-            convertView = inflater.inflate(R.layout.image_list_item, parent, false);
+
+            if(convertView == null) {
+                convertView = inflater.inflate(R.layout.image_list_item, parent, false);
+            }
 
             // Get the Image object to be displayed
-            Image i = imageArrayList.get(position);
+            Image i = imageList.get(position);
 
             // Set the thumbnail image
-            ImageView thumbnail = convertView.findViewById(R.id.image_list_thumbnail);
+            ImageView thumbnail = parent.findViewById(R.id.image_list_thumbnail);
             thumbnail.setImageBitmap(i.loadImage(parent.getContext()));
 
             // Set the image date (the day it was NASA's Image of the Day)
-            TextView imageDate = convertView.findViewById(R.id.image_list_date);
-            imageDate.setText(Image.getDateString(i.getImageDate()));
+            TextView imageDate = parent.findViewById(R.id.image_list_date);
+            imageDate.setText(i.getImageDate().toString());
 
             // Set the image name (user-defined)
-            TextView imageName = convertView.findViewById(R.id.image_list_name);
+            TextView imageName = parent.findViewById(R.id.image_list_name);
             imageName.setText(i.getName());
 
             return convertView;

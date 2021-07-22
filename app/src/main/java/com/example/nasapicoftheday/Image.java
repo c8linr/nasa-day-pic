@@ -7,35 +7,29 @@ import android.os.Bundle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
- * The Image class contains the actual Image and relevant metadata.
+ * The Image class contains the actual image and relevant metadata.
  */
-public class Image implements Serializable {
+public class Image {
     /** A unique ID assigned to the image */
-    private int id;
+    private final int id;
     /** The user-defined name of the image */
     private String name;
     /** The title of the image assigned by NASA */
-    private String title;
+    private final String title;
     /** The date the image was downloaded to disk */
-    private Date downloadDate;
+    private final CustomDate downloadDate;
     /** The date the image was NASA's Image of the Day */
-    private Date imageDate;
+    private final CustomDate imageDate;
     /** The name of the file on disk containing the image */
-    private String fileName;
+    private final String fileName;
     /** The Bitmap with the actual image */
     private Bitmap imageRaster;
 
     /** Static field used to assign unique IDs */
     private static int nextID = 0;
+    /** Static constants used for loading/extracting data from a Bundle */
     public static final String ID_KEY = "ImageID";
     public static final String NAME_KEY = "ImageName";
     public static final String TITLE_KEY = "ImageTitle";
@@ -51,7 +45,7 @@ public class Image implements Serializable {
      * @param imageDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(String title, Date downloadDate, Date imageDate, String fileName)
+    public Image(String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = setID();
         this.name = null;
@@ -59,22 +53,23 @@ public class Image implements Serializable {
         this.downloadDate = downloadDate;
         this.imageDate = imageDate;
         this.fileName = validateFileName(fileName);
+        this.imageRaster = null;
     }
 
-    /**
-     * Constructor used when downloading a new Image with a user-given name.
-     *
-     * @param name the user-provided name of the image
-     * @param title the title of the image as provided by NASA
-     * @param downloadDate the date the image was downloaded
-     * @param imageDate the date the image was Image of the Day
-     * @param fileName the name of the JPEG file
-     */
-    public Image(String name, String title, Date downloadDate, Date imageDate, String fileName)
-            throws IllegalFileExtensionException {
-        this(title, downloadDate, imageDate, fileName);
-        this.name = name;
-    }
+//    /**
+//     * Constructor used when downloading a new Image with a user-given name.
+//     *
+//     * @param name the user-provided name of the image
+//     * @param title the title of the image as provided by NASA
+//     * @param downloadDate the date the image was downloaded
+//     * @param imageDate the date the image was Image of the Day
+//     * @param fileName the name of the JPEG file
+//     */
+//    public Image(String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
+//            throws IllegalFileExtensionException {
+//        this(title, downloadDate, imageDate, fileName);
+//        this.name = name;
+//    }
 
     /**
      * Constructor used when loading an Image from the database into memory.
@@ -87,13 +82,14 @@ public class Image implements Serializable {
      * @param fileName the name of the JPEG file
      */
     public Image(int id, String name, String title, String downloadDate, String imageDate, String fileName)
-            throws IllegalFileExtensionException, ParseException {
+            throws IllegalFileExtensionException {
         this.id = id;
         this.name = name;
         this.title = title;
-        this.downloadDate = getDateFromString(downloadDate);
-        this.imageDate = getDateFromString(imageDate);
+        this.downloadDate = new CustomDate(downloadDate);
+        this.imageDate = new CustomDate(imageDate);
         this.fileName = validateFileName(fileName);
+        this.imageRaster = null;
     }
 
     /**
@@ -122,26 +118,26 @@ public class Image implements Serializable {
      */
     public String getTitle() { return title; }
 
-    /**
-     * Returns the date the image was downloaded onto disk.
-     *
-     * @return the date the image was downloaded
-     */
-    public Date getDownloadDate() { return downloadDate; }
+//    /**
+//     * Returns the date the image was downloaded onto disk.
+//     *
+//     * @return the date the image was downloaded
+//     */
+//    public CustomDate getDownloadDate() { return downloadDate; }
 
     /**
      * Returns the date the image was NASA's Image of the Day.
      *
      * @return the date the image was Image of the Day
      */
-    public Date getImageDate() { return imageDate; }
+    public CustomDate getImageDate() { return imageDate; }
 
-    /**
-     * Returns the file name where the image is stored on disk.
-     *
-     * @return the name of the image file
-     */
-    public String getFileName() { return fileName; }
+//    /**
+//     * Returns the file name where the image is stored on disk.
+//     *
+//     * @return the name of the image file
+//     */
+//    public String getFileName() { return fileName; }
 
     public Bitmap loadImage(Context parentActivity) {
         if (imageRaster == null) {
@@ -176,8 +172,8 @@ public class Image implements Serializable {
         b.putInt(ID_KEY, id);
         b.putString(NAME_KEY, name);
         b.putString(TITLE_KEY, title);
-        b.putString(DL_DATE_KEY, getDateString(downloadDate));
-        b.putString(NASA_DATE_KEY, getDateString(imageDate));
+        b.putString(DL_DATE_KEY, downloadDate.toString());
+        b.putString(NASA_DATE_KEY, imageDate.toString());
         b.putString(FILE_NAME_KEY, fileName);
 
         return b;
@@ -244,61 +240,6 @@ public class Image implements Serializable {
             }
         }
         return false;
-    }
-
-    /**
-     * Returns a Date parsed from the given String.
-     *
-     * @param dateAsString the String to parse into a Date
-     * @return a Date object based on the given String
-     * @throws ParseException if the String cannot be parsed into a Date
-     */
-    private static Date getDateFromString(String dateAsString)
-            throws ParseException {
-        return DateFormat.getInstance().parse(dateAsString);
-    }
-
-    /**
-     * Returns a Date object parsed from the given year, month day as integers.
-     *
-     * @param year the year to use in the Date (1900-present, inclusive)
-     * @param month the month (0-11) to use in the Date
-     * @param day the day of the month (1-31) to use in the Date
-     * @return a Date object using the given parameters
-     * @throws IllegalArgumentException if any arguments are out of range
-     */
-    public static Date getDateFromInts(int year, int month, int day)
-            throws IllegalArgumentException {
-        // The year shouldn't be too far in the past (1900 is arbitrary) or in the future
-        if (year < 1900 || year > Calendar.getInstance().get(Calendar.YEAR)) {
-            throw new IllegalArgumentException();
-        }
-        // Make sure the month is between 0-11, inclusive
-        if (month < 0 || month > 11) {
-            throw new IllegalArgumentException();
-        }
-        // Make sure the day is between 1-31, inclusive
-        if (day < 1 || day > 31) {
-            throw new IllegalArgumentException();
-        }
-
-        Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, day);
-
-        return cal.getTime();
-    }
-
-    /**
-     * Converts a given Date object to a String
-     *
-     * @param date the Date object to be converted
-     * @return the String representation of the Date
-     */
-    public static String getDateString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-        return dateFormat.format(date);
     }
 
     /**

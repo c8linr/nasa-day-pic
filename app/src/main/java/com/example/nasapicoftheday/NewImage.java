@@ -21,9 +21,7 @@ import java.util.Calendar;
  * @author Caitlin Ross
  */
 public class NewImage extends AppCompatActivity {
-    /**
-     * Static constant for the package prefix (could be placed elsewhere, but it's used here).
-     */
+    /** Static constant for requesting the Date bundle */
     public static final String DATE_BUNDLE_KEY = "com.example.nasapicoftheday.DateSelected";
 
     /**
@@ -51,18 +49,15 @@ public class NewImage extends AppCompatActivity {
         DialogFragment dateFragment = new DatePickerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.setFragmentResultListener(DatePickerFragment.DATE_REQUEST_KEY, this, (requestKey, result) -> {
-            int day = result.getInt(DatePickerFragment.DAY_KEY);
-            int month = result.getInt(DatePickerFragment.MONTH_KEY);
-            int year = result.getInt(DatePickerFragment.YEAR_KEY);
+            int year = result.getInt(CustomDate.YEAR_KEY);
+            int month = result.getInt(CustomDate.MONTH_KEY);
+            int day = result.getInt(CustomDate.DAY_KEY);
+            CustomDate date = new CustomDate(year, month, day);
             dateSelected.append(" " + getMonthName(month) +
                 " " + day +
                 ", " + year);
             confirmDateButton.setEnabled(true);
-            Bundle dateBundle = new Bundle();
-            dateBundle.putInt(DatePickerFragment.DAY_KEY, day);
-            dateBundle.putInt(DatePickerFragment.MONTH_KEY, month);
-            dateBundle.putInt(DatePickerFragment.YEAR_KEY, year);
-            goToDownloadImage.putExtra(DATE_BUNDLE_KEY, dateBundle);
+            goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
         });
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
@@ -110,11 +105,8 @@ public class NewImage extends AppCompatActivity {
             implements DatePickerDialog.OnDateSetListener {
 
         /**
-         * These static constants are provided to prevent errors when accessing the Bundle with the date.
+         * Static constant provided to prevent errors when accessing the Bundle with the date.
          */
-         public static final String YEAR_KEY = "YEAR";
-         public static final String MONTH_KEY = "MONTH";
-         public static final String DAY_KEY = "DAY";
          public static final String DATE_REQUEST_KEY = "REQUEST_DATE";
 
          /**
@@ -146,12 +138,8 @@ public class NewImage extends AppCompatActivity {
           */
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            // Create a bundle to be accessed through the FragmentManager that contains the date
-            Bundle result = new Bundle();
-            result.putInt(YEAR_KEY, year);
-            result.putInt(MONTH_KEY, month);
-            result.putInt(DAY_KEY, dayOfMonth);
-            getParentFragmentManager().setFragmentResult(DATE_REQUEST_KEY, result);
+            CustomDate date = new CustomDate(year, month, dayOfMonth);
+            getParentFragmentManager().setFragmentResult(DATE_REQUEST_KEY, date.getBundle());
         }
     }
 }

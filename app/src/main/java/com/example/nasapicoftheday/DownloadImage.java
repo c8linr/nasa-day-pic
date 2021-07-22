@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 /**
  * The DownloadImage class contains the functionality for the Download Image activity.
@@ -45,23 +44,22 @@ public class DownloadImage extends AppCompatActivity {
 
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
-        int day = dateBundle.getInt(NewImage.DatePickerFragment.DAY_KEY);
-        int month = dateBundle.getInt(NewImage.DatePickerFragment.MONTH_KEY);
-        int year = dateBundle.getInt(NewImage.DatePickerFragment.YEAR_KEY);
+        CustomDate date = new CustomDate(dateBundle);
+//        int day = dateBundle.getInt(NewImage.DatePickerFragment.DAY_KEY);
+//        int month = dateBundle.getInt(NewImage.DatePickerFragment.MONTH_KEY);
+//        int year = dateBundle.getInt(NewImage.DatePickerFragment.YEAR_KEY);
 
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
-        query.execute(year, month, day);
+        query.execute(date);
     }
 
     /**
      * The ImageRequest class handles the background API call to NASA.
      */
-    static class ImageQuery extends AsyncTask<Integer, Integer, Image> {
+    static class ImageQuery extends AsyncTask<CustomDate, Integer, Image> {
         /** The Activity calling the AsyncTask */
         private final AppCompatActivity parentActivity;
-
-        public static final String IMAGE_BUNDLE_KEY = "com.example.nasapicoftheday.DownloadedImage";
 
         public ImageQuery(AppCompatActivity context) {
             this.parentActivity = context;
@@ -69,20 +67,20 @@ public class DownloadImage extends AppCompatActivity {
         /**
          * Calls NASA's API to download the relevant image.
          *
-         * @param ints the day, month, and year of the image to be downloaded
+         * @param dates selected date of the image to be downloaded
          * @return the downloaded image
          */
         @Override
-        protected Image doInBackground(Integer... ints) {
+        protected Image doInBackground(CustomDate... dates) {
             Image newImage = null;
-            String dateString = ints[0].toString() + "-" + ints[1].toString() + "-" + ints[2].toString();
+            //String dateString = ints[0].toString() + "-" + ints[1].toString() + "-" + ints[2].toString();
 
             // Update the progress
             publishProgress(0);
 
             try {
                 // Connect to the NASA API to get the image's URL and title
-                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz&date=" + dateString);
+                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz&date=" + dates[0].toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 InputStream response = conn.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
@@ -131,7 +129,7 @@ public class DownloadImage extends AppCompatActivity {
                 outputStream.close();
 
                 // Make a new Image object
-                newImage = new Image(imageTitle, new Date(), Image.getDateFromInts(ints[0], ints[1], ints[2]), imageFile);
+                newImage = new Image(imageTitle, new CustomDate(), dates[0], imageFile);
 
                 // Update the progress
                 publishProgress(100);
