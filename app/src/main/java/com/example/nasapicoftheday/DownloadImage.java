@@ -2,6 +2,7 @@ package com.example.nasapicoftheday;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,9 +48,6 @@ public class DownloadImage extends AppCompatActivity {
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
         CustomDate date = new CustomDate(dateBundle);
-//        int day = dateBundle.getInt(NewImage.DatePickerFragment.DAY_KEY);
-//        int month = dateBundle.getInt(NewImage.DatePickerFragment.MONTH_KEY);
-//        int year = dateBundle.getInt(NewImage.DatePickerFragment.YEAR_KEY);
 
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
@@ -59,11 +59,18 @@ public class DownloadImage extends AppCompatActivity {
      */
     static class ImageQuery extends AsyncTask<CustomDate, Integer, Image> {
         /** The Activity calling the AsyncTask */
+        @SuppressLint("StaticFieldLeak")
         private final AppCompatActivity parentActivity;
 
+        /**
+         * Constructor, initializes the context.
+         *
+         * @param context the context of the calling Activity
+         */
         public ImageQuery(AppCompatActivity context) {
             this.parentActivity = context;
         }
+
         /**
          * Calls NASA's API to download the relevant image.
          *
@@ -73,50 +80,34 @@ public class DownloadImage extends AppCompatActivity {
         @Override
         protected Image doInBackground(CustomDate... dates) {
             Image newImage = null;
-            //String dateString = ints[0].toString() + "-" + ints[1].toString() + "-" + ints[2].toString();
 
             // Update the progress
             publishProgress(0);
 
+            // The entire section of code that uses resources is surrounded in a try-catch block
             try {
-                // Connect to the NASA API to get the image's URL and title
-                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz&date=" + dates[0].toString());
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                InputStream response = conn.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
-
-                // Add all lines from the response into a StringBuilder
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append('\n');
-                }
+                JSONObject nasaResponse = getJSONFromURL(dates[0]);
 
                 // Update the progress
                 publishProgress(25);
 
-                // Convert the response to a JSON Object and extract the image's URL and title
-                JSONObject nasaResponse = new JSONObject(sb.toString());
+                // Extract the image's download URL and title
                 URL imageURL = new URL(nasaResponse.getString("url"));
                 String imageTitle = nasaResponse.getString("title");
                 String imageFile = imageTitle + ".jpeg";
 
-                // Close the current connection before opening the next
-                response.close();
-                conn.disconnect();
-
                 // Update the progress
                 publishProgress(50);
 
-                // Connect to the image's URL if it doesn't exist on disk
-                Bitmap bitmap = null;
+                // Download the image from the URL if it doesn't exist on disk
+                Bitmap bitmap;
                 if(!fileExists(imageFile)) {
-                    conn = (HttpURLConnection) imageURL.openConnection();
-                    conn.connect();
-                    if (conn.getResponseCode() == 200) {
-                        bitmap = BitmapFactory.decodeStream(conn.getInputStream());
-                    }
+                    bitmap = downloadImage(imageURL);
+                } else {
+                    // This feels useless, but I don't know why
+                    bitmap = openImage(imageFile);
                 }
+
                 // Update the progress
                 publishProgress(75);
 
@@ -193,6 +184,84 @@ public class DownloadImage extends AppCompatActivity {
         private boolean fileExists(String fileName) {
             File file = parentActivity.getBaseContext().getFileStreamPath(fileName);
             return file.exists();
+        }
+
+        /**
+         * Uses the given date to generate a JSONObject using the NASA Image of the Day API.
+         *
+         * @param date the date the user selected
+         * @return a JSONObject containing the relevant information about the Image of the Day
+         * @throws Exception if something goes wrong
+         */
+        private JSONObject getJSONFromURL(CustomDate date) throws Exception {
+            InputStream response = null;
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+            JSONObject json;
+            try{
+                // Create a URL with the given date to query NASA for the image's download URL
+                URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=CD2JkCnbAMdQpZ4O3a0vxBrnRfpIQVJn4fGUp1Sz&date=" + date.toString());
+                connection = (HttpURLConnection) url.openConnection();
+                response = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
+
+                // Add all lines from the response into a StringBuilder
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append('\n');
+                }
+
+                json =  new JSONObject(sb.toString());
+            } finally {
+                // Close the current connection before opening the next
+                if (reader != null ) {
+                    reader.close();
+                }
+                if (response != null) {
+                    response.close();
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+            return json;
+        }
+
+        /**
+         * Downloads the image from the given NASA url
+         *
+         * @param imageURL the URL where the image is located
+         * @return a Bitmap of the image
+         * @throws Exception if something goes wrong
+         */
+        private Bitmap downloadImage(URL imageURL) throws Exception {
+            Bitmap bitmap = null;
+            HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
+            conn.connect();
+            if (conn.getResponseCode() == 200) {
+                bitmap = BitmapFactory.decodeStream(conn.getInputStream());
+            }
+            return bitmap;
+        }
+
+        /**
+         * Opens the image from the disk
+         *
+         * @param fileName the name of the image file
+         * @return a Bitmap of the image
+         */
+        private Bitmap openImage(String fileName) {
+            FileInputStream inputStream = null;
+            Bitmap bitmap = null;
+            try {
+                inputStream = parentActivity.openFileInput(fileName);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (FileNotFoundException fe) {
+                fe.printStackTrace();
+            }
+            return bitmap;
         }
     }
 }
