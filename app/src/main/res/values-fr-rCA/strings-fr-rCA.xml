@@ -15,6 +15,6 @@
     <string name="download_progress_label">Téléchargement en cours…</string>
     <string name="download_name_image">"Choisissez un nom pour l'image (facultative): "</string>
     <string name="download_image_name_field">Nom facultative</string>
-    <string name="download_save_name_button">Enregistréz</string>
+    <string name="download_save_name_button">Enregistrez</string>
     <string name="download_complete_msg">Téléchargement complet</string>
 </resources>

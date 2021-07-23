@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_welcome"
+        android:icon="@drawable/menu_welcome"
+        android:title="@string/menu_welcome"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/menu_help"
+        android:title="@string/menu_help"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_new_image"
+        android:title="@string/menu_new_image"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/menu_saved_images"
+        android:title="@string/menu_saved_images"
+        android:orderInCategory="4"
+        app:showAsAction="never"
+        />
+
+</menu>

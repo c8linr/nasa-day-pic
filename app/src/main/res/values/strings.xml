@@ -16,4 +16,10 @@
     <string name="download_image_name_field">Optional Name</string>
     <string name="download_save_name_button">Save</string>
     <string name="download_complete_msg">Download complete</string>
+    <string name="menu_welcome">Welcome Page</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_new_image">New Image</string>
+    <string name="menu_saved_images">Saved Images</string>
+    <string name="drawer_open_desc">Open the navigation menu</string>
+    <string name="drawer_close_desc">Close the navigation menu</string>
 </resources>

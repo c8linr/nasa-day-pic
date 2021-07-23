@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_welcome">Acceuil</string>
+    <string name="menu_help">Aide</string>
+    <string name="menu_new_image">Nouvelle image</string>
+    <string name="menu_saved_images">Images enregistrées</string>
+    <string name="drawer_open_desc">Ouvrez le menu de navigation</string>
+    <string name="drawer_close_desc">Fermez le menu de navigation</string>
+</resources>
