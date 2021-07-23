@@ -14,13 +14,13 @@ public class ImageOpener extends SQLiteOpenHelper {
     /** Several static constants that hold database identifiers (database name, table name, column names, etc). */
     private final static String DATABASE_NAME = "ImageDB";
     private final static int VERSION_NUM = 1;
-    private final static String TABLE = "SAVED_IMAGES";
-    private final static String COL_ID = "IMAGE_ID";
-    private final static String COL_FILEPATH = "FILE_PATH";
-    private final static String COL_GIVEN_NAME = "GIVEN_NAME";
-    private final static String COL_PHOTO_TITLE = "PHOTO_TITLE";
-    private final static String COL_IMAGE_DATE = "IMAGE_DATE";
-    private final static String COL_DOWNLOAD_DATE = "DOWNLOAD_DATE";
+    public final static String TABLE = "SAVED_IMAGES";
+    public final static String COL_ID = "IMAGE_ID";
+    public final static String COL_FILE_NAME = "FILE_PATH";
+    public final static String COL_NAME = "GIVEN_NAME";
+    public final static String COL_TITLE = "PHOTO_TITLE";
+    public final static String COL_IMAGE_DATE = "IMAGE_DATE";
+    public final static String COL_DOWNLOAD_DATE = "DOWNLOAD_DATE";
 
     /**
      * Constructor.
@@ -40,9 +40,9 @@ public class ImageOpener extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE +
                 " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_FILEPATH + " text, " +
-                COL_GIVEN_NAME + " text, " +
-                COL_PHOTO_TITLE + " text, " +
+                COL_FILE_NAME + " text, " +
+                COL_NAME + " text, " +
+                COL_TITLE + " text, " +
                 COL_IMAGE_DATE + " text, " +
                 COL_DOWNLOAD_DATE + " text)");
     }
