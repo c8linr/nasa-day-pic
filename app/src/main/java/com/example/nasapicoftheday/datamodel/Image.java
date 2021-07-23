@@ -105,7 +105,7 @@ public class Image {
      * @return the image's name (if exists) or title
      */
     public String getName() {
-        if (name.isEmpty() || name == null) {
+        if (name == null || name.isEmpty()) {
             return title;
         }
         return name;

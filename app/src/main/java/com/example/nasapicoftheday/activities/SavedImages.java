@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
  */
 public class SavedImages extends AppCompatActivity {
     ArrayList<Image> imageList;
+    ImageListAdapter adapter;
 
     /**
      * Creates the Saved Images activity and add the functionality
@@ -34,30 +36,32 @@ public class SavedImages extends AppCompatActivity {
         setContentView(R.layout.activity_saved_images);
 
         // Initialize the array list of images
-        imageList = new ArrayList<>();
+//        imageList = new ArrayList<>();
 
         // Check if an Image object was sent in via a Bundle
-        Bundle newImageBundle = this.getIntent().getExtras();
-        if (newImageBundle != null) {
-            int imageId = newImageBundle.getInt(Image.ID_KEY);
-            String imageName = newImageBundle.getString(Image.NAME_KEY);
-            String imageTitle = newImageBundle.getString(Image.TITLE_KEY);
-            String imageDownloadDate = newImageBundle.getString(Image.DL_DATE_KEY);
-            String imageNasaDate = newImageBundle.getString(Image.NASA_DATE_KEY);
-            String imageFileName = newImageBundle.getString(Image.FILE_NAME_KEY);
-            try {
-                Image newImage = new Image(imageId, imageName, imageTitle, imageDownloadDate, imageNasaDate, imageFileName);
-                imageList.add(newImage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        Bundle newImageBundle = this.getIntent().getExtras();
+//        if (newImageBundle != null) {
+//            int imageId = newImageBundle.getInt(Image.ID_KEY);
+//            String imageName = newImageBundle.getString(Image.NAME_KEY);
+//            String imageTitle = newImageBundle.getString(Image.TITLE_KEY);
+//            String imageDownloadDate = newImageBundle.getString(Image.DL_DATE_KEY);
+//            String imageNasaDate = newImageBundle.getString(Image.NASA_DATE_KEY);
+//            String imageFileName = newImageBundle.getString(Image.FILE_NAME_KEY);
+//            try {
+//                Image newImage = new Image(imageId, imageName, imageTitle, imageDownloadDate, imageNasaDate, imageFileName);
+//                imageList.add(newImage);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
-        // When database is implemented, load the images from there
+        // Load the images from the database
+        ImageDao dao = new ImageDao();
+        imageList = new ArrayList<>(dao.loadImages(this));
 
         //Populate the ListView
         ListView imageListView = findViewById(R.id.view_image_list);
-        ImageListAdapter adapter = new ImageListAdapter();
+        adapter = new ImageListAdapter();
         imageListView.setAdapter(adapter);
 
         // Add a listener to the List View to load the fragment/empty activity when an image is clicked
@@ -66,6 +70,18 @@ public class SavedImages extends AppCompatActivity {
             Intent viewImage = new Intent(SavedImages.this, EmptyActivity.class);
             startActivity(viewImage, selectedImage.getBundle());
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Reload the images from the database
+        ImageDao dao = new ImageDao();
+        imageList = new ArrayList<>(dao.loadImages(this));
+
+        // Notify the ListView that the data has updated
+        adapter.notifyDataSetChanged();
     }
 
     /**

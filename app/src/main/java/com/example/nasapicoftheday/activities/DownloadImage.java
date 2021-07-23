@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.CustomDate;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
@@ -132,6 +133,13 @@ public class DownloadImage extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            // Save the image data to the database
+            if(newImage != null) {
+                ImageDao dao = new ImageDao();
+                dao.saveImage(newImage, parentActivity);
+            }
+
+            // Return the image
             return newImage;
         }
 
@@ -147,7 +155,7 @@ public class DownloadImage extends AppCompatActivity {
         }
 
         /**
-         * Called when the task is finished executing.
+         * Called when the background task is finished executing.
          *
          * @param pic the downloaded image
          */
@@ -176,7 +184,7 @@ public class DownloadImage extends AppCompatActivity {
             Button saveButton = parentActivity.findViewById(R.id.download_save_name_button);
             saveButton.setEnabled(true);
             Intent goToSavedImages = new Intent(parentActivity, SavedImages.class);
-            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages, pic.getBundle()));
+            saveButton.setOnClickListener((click) -> parentActivity.startActivity(goToSavedImages));
         }
 
         /**

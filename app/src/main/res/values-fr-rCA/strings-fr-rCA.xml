@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nasa Image du Jour</string>
+    <string name="welcome_msg">Bienvenue au appli de Nasa Image du Jour!</string>
+    <string name="welcome_back">"Bienvenue "</string>
+    <string name="welcome_new_button">Téléchargez une nouvelle image</string>
+    <string name="welcome_saved_button">Voyez vos images enregistrées</string>
+    <string name="default_image_name">Image sans nom</string>
+    <string name="default_image_desc">Pas de description</string>
+    <string name="fragment_edit_button">Éditez le nom</string>
+    <string name="fragment_delete_button">Supprimez l\'image</string>
+    <string name="new_select_date_button">Choirissez une date</string>
+    <string name="new_selected_date">Date supprimée:</string>
+    <string name="new_confirm_button">Confirmez  le téléchargement</string>
+    <string name="download_progress_label">Téléchargement en cours…</string>
+    <string name="download_name_image">"Choisissez un nom pour l'image (facultative): "</string>
+    <string name="download_image_name_field">Nom facultative</string>
+    <string name="download_save_name_button">Enregistréz</string>
+    <string name="download_complete_msg">Téléchargement complet</string>
+</resources>
