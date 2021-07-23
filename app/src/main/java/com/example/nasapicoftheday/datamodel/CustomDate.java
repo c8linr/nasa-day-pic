@@ -10,7 +10,7 @@ import java.util.Calendar;
  * The CustomDate class is a custom version that only holds Year, Month, and Day.
  */
 public class CustomDate {
-    /** For the purposes of this program, the year must be between 1900 and the current year */
+    /** For the purposes of this program, the year must be between 1995 and the current year */
     private final Integer year;
     /** Month represented as an integer between 1-12 */
     private final Integer month;
@@ -34,7 +34,7 @@ public class CustomDate {
     /**
      * Constructor using 3 ints (year, month, day) as parameters.
      *
-     * @param y the year to be represented (1900 - current year)
+     * @param y the year to be represented (1995 - current year)
      * @param m the month to be represented (1-12)
      * @param d the day of the month to be represented (1-31)
      * @throws IllegalArgumentException if any argument is outside the valid range
@@ -135,7 +135,7 @@ public class CustomDate {
     /**
      * Returns a String version of the year.
      *
-     * @return the year as a 4-character String (1900-current year)
+     * @return the year as a 4-character String (1995-current year)
      */
     private String yearString() {
         return year.toString();
@@ -168,7 +168,7 @@ public class CustomDate {
     }
 
     /**
-     * Determines if the given year is between 1900 and the current year.
+     * Determines if the given year is between 1995 and the current year, since the earliest date for the API call is June 16, 1995.
      *
      * @param y the year to validate
      * @return true if the argument is in the valid range

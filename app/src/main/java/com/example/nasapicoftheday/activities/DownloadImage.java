@@ -1,6 +1,11 @@
 package com.example.nasapicoftheday.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,6 +13,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +28,7 @@ import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.CustomDate;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 
@@ -39,7 +48,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @author Caitlin Ross
  */
-public class DownloadImage extends AppCompatActivity {
+public class DownloadImage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     /**
      * Creates the Download Image activity and adds the functionality.
      *
@@ -50,6 +59,20 @@ public class DownloadImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_image);
 
+        // Set up the toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set up the navigation drawer
+        DrawerLayout drawerLayout = findViewById(R.id.download_image_drawer_layout);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                toolbar, R.string.drawer_open_desc, R.string.drawer_close_desc);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.drawer_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
         CustomDate date = new CustomDate(dateBundle);
@@ -57,6 +80,76 @@ public class DownloadImage extends AppCompatActivity {
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
         query.execute(date);
+    }
+
+    /**
+     * Inflates the toolbar's layout.
+     *
+     * @param m the menu being created
+     * @return true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu m) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, m);
+        return true;
+    }
+
+    /**
+     * Directs the user to the correct activity when an option from the toolbar is selected.
+     *
+     * @param item the menu item selected
+     * @return true
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_welcome:
+                Intent goToWelcome = new Intent(this, MainActivity.class);
+                startActivity(goToWelcome);
+                break;
+            case R.id.menu_help:
+                // show help dialog
+                break;
+            case R.id.menu_new_image:
+                Intent goToNewImage = new Intent(this, NewImage.class);
+                startActivity(goToNewImage);
+                break;
+            case R.id.menu_saved_images:
+                Intent goToSavedImages = new Intent(this, SavedImages.class);
+                startActivity(goToSavedImages);
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * Directs the user to the correct activity when an option from the navigation drawer is selected.
+     *
+     * @param item the menu item selected
+     * @return true
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.drawer_welcome_button:
+                Intent goToWelcome = new Intent(this, MainActivity.class);
+                startActivity(goToWelcome);
+                break;
+            case R.id.drawer_new_image_button:
+                Intent goToNewImage = new Intent(this, NewImage.class);
+                startActivity(goToNewImage);
+                break;
+            case R.id.drawer_saved_images_button:
+                Intent goToSavedImages = new Intent(this, SavedImages.class);
+                startActivity(goToSavedImages);
+                break;
+        }
+
+        DrawerLayout drawerLayout = findViewById(R.id.download_image_drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        return false;
     }
 
     /**
