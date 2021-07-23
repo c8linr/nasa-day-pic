@@ -56,20 +56,20 @@ public class Image {
         this.imageRaster = null;
     }
 
-//    /**
-//     * Constructor used when downloading a new Image with a user-given name.
-//     *
-//     * @param name the user-provided name of the image
-//     * @param title the title of the image as provided by NASA
-//     * @param downloadDate the date the image was downloaded
-//     * @param imageDate the date the image was Image of the Day
-//     * @param fileName the name of the JPEG file
-//     */
-//    public Image(String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
-//            throws IllegalFileExtensionException {
-//        this(title, downloadDate, imageDate, fileName);
-//        this.name = name;
-//    }
+    /**
+     * Constructor used when downloading a new Image with a user-given name.
+     *
+     * @param name the user-provided name of the image
+     * @param title the title of the image as provided by NASA
+     * @param downloadDate the date the image was downloaded
+     * @param imageDate the date the image was Image of the Day
+     * @param fileName the name of the JPEG file
+     */
+    public Image(String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
+            throws IllegalFileExtensionException {
+        this(title, downloadDate, imageDate, fileName);
+        this.name = name;
+    }
 
     /**
      * Constructor used when loading an Image from the database into memory.
@@ -118,12 +118,12 @@ public class Image {
      */
     public String getTitle() { return title; }
 
-//    /**
-//     * Returns the date the image was downloaded onto disk.
-//     *
-//     * @return the date the image was downloaded
-//     */
-//    public CustomDate getDownloadDate() { return downloadDate; }
+    /**
+     * Returns the date the image was downloaded onto disk.
+     *
+     * @return the date the image was downloaded
+     */
+    public CustomDate getDownloadDate() { return downloadDate; }
 
     /**
      * Returns the date the image was NASA's Image of the Day.
@@ -132,12 +132,12 @@ public class Image {
      */
     public CustomDate getImageDate() { return imageDate; }
 
-//    /**
-//     * Returns the file name where the image is stored on disk.
-//     *
-//     * @return the name of the image file
-//     */
-//    public String getFileName() { return fileName; }
+    /**
+     * Returns the file name where the image is stored on disk.
+     *
+     * @return the name of the image file
+     */
+    public String getFileName() { return fileName; }
 
     public Bitmap loadImage(Context parentActivity) {
         if (imageRaster == null) {
