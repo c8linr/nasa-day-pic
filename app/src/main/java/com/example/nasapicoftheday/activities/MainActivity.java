@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle(R.string.welcome_help_title);
                 alertDialogBuilder.setMessage(R.string.welcome_help_msg);
-                alertDialogBuilder.setNeutralButton(R.string.welcome_help_close, (click, arg) -> { });
+                alertDialogBuilder.setNeutralButton(R.string.help_close, (click, arg) -> { });
                 alertDialogBuilder.create().show();
                 break;
             case R.id.menu_new_image:

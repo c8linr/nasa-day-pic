@@ -8,5 +8,7 @@
     <string name="drawer_close_desc">Fermez le menu de navigation</string>
     <string name="welcome_help_title">Aide pour l\'acceuil</string>
     <string name="welcome_help_msg">Pour téléchargez une nouvelle image du jour de NASA, cliquez le bouton qui dit \"Téléchargez une nouvell image\". Pour voir les images qui sont déja téléchargées, cliquez le bouton qui dit \"Voyez vos image enregistrées\".</string>
-    <string name="welcome_help_close">D\'accord</string>
+    <string name="help_close">D\'accord</string>
+    <string name="new_image_help_title">Aide pour télécharger une nouvelle image</string>
+    <string name="new_image_help_msg">Pour télécharger unew nouvelle Image du Jour de NASA, choirissez une date, puis cliquez le bouton qui dit \"Confirmez le téléchargement\".</string>
 </resources>

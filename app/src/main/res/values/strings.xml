@@ -24,5 +24,7 @@
     <string name="drawer_close_desc">Close the navigation menu</string>
     <string name="welcome_help_title">Welcome Page Help</string>
     <string name="welcome_help_msg">To download a new NASA Image of the Day, click the \"Download a new image\" button. To view any images that have already been saved, click the \"View your saved images\" button.</string>
-    <string name="welcome_help_close">OK</string>
+    <string name="help_close">OK</string>
+    <string name="new_image_help_title">New Image Help</string>
+    <string name="new_image_help_msg">To download a new NASA Image of the Day, select the date that the image was Image of the Day, then click the \"Confirm Download\" button.</string>
 </resources>
