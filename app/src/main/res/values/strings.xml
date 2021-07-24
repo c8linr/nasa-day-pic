@@ -27,4 +27,6 @@
     <string name="help_close">OK</string>
     <string name="new_image_help_title">New Image Help</string>
     <string name="new_image_help_msg">To download a new NASA Image of the Day, select the date that the image was Image of the Day, then click the \"Confirm Download\" button.</string>
+    <string name="download_image_help_title">Download Image Help</string>
+    <string name="download_image_help_msg">The image should download automatically. Here you may choose a name for the image before saving the image to the database.</string>
 </resources>
