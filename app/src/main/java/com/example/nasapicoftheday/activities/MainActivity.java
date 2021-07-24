@@ -2,6 +2,7 @@ package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -85,7 +86,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(goToWelcome);
                 break;
             case R.id.menu_help:
-                // show help dialog
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.welcome_help_title);
+                alertDialogBuilder.setMessage(R.string.welcome_help_msg);
+                alertDialogBuilder.setNeutralButton(R.string.welcome_help_close, (click, arg) -> { });
+                alertDialogBuilder.create().show();
                 break;
             case R.id.menu_new_image:
                 Intent goToNewImage = new Intent(this, NewImage.class);

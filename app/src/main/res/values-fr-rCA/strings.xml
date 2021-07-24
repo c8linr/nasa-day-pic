@@ -6,4 +6,7 @@
     <string name="menu_saved_images">Images enregistrées</string>
     <string name="drawer_open_desc">Ouvrez le menu de navigation</string>
     <string name="drawer_close_desc">Fermez le menu de navigation</string>
+    <string name="welcome_help_title">Aide pour l\'acceuil</string>
+    <string name="welcome_help_msg">Pour téléchargez une nouvelle image du jour de NASA, cliquez le bouton qui dit \"Téléchargez une nouvell image\". Pour voir les images qui sont déja téléchargées, cliquez le bouton qui dit \"Voyez vos image enregistrées\".</string>
+    <string name="welcome_help_close">D\'accord</string>
 </resources>

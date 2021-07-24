@@ -22,4 +22,7 @@
     <string name="menu_saved_images">Saved Images</string>
     <string name="drawer_open_desc">Open the navigation menu</string>
     <string name="drawer_close_desc">Close the navigation menu</string>
+    <string name="welcome_help_title">Welcome Page Help</string>
+    <string name="welcome_help_msg">To download a new NASA Image of the Day, click the \"Download a new image\" button. To view any images that have already been saved, click the \"View your saved images\" button.</string>
+    <string name="welcome_help_close">OK</string>
 </resources>
