@@ -13,4 +13,6 @@
     <string name="new_image_help_msg">Pour choisir une nouvelle Image du Jour de NASA, choisissez une date puis cliquez le bouton qui dit \"Confirmez le téléchargement\".</string>
     <string name="download_image_help_title">Aide pour télécharger une nouvelle image</string>
     <string name="download_image_help_msg">L\'image doit télécharger automatiquement. Vouz pouvez entrer un nouvel nom pour l\'image avant d\'enregistrer l\'image a la base de données.</string>
+    <string name="saved_images_help_title">Aide pour voir les images enregistrées</string>
+    <string name="saved_images_help_msg">Pour voir un image enregistrée, cliquez le nom d\'image. Pour supprimer l\'image, appuyez sur et maintenez appuyé le nom d\'image.</string>
 </resources>

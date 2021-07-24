@@ -10,7 +10,7 @@
     <string name="fragment_edit_button">Éditez le nom</string>
     <string name="fragment_delete_button">Supprimez l\'image</string>
     <string name="new_select_date_button">Choisissez une date</string>
-    <string name="new_selected_date">Date supprimée:</string>
+    <string name="new_selected_date">Date sélectionné:</string>
     <string name="new_confirm_button">Confirmez  le téléchargement</string>
     <string name="download_progress_label">Téléchargement en cours…</string>
     <string name="download_name_image">"Choisissez un nom pour l'image (facultative): "</string>
