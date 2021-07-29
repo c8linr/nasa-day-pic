@@ -7,13 +7,14 @@ import android.os.Bundle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.UUID;
 
 /**
  * The Image class contains the actual image and relevant metadata.
  */
 public class Image {
     /** A unique ID assigned to the image */
-    private final int id;
+    private final UUID id;
     /** The user-defined name of the image */
     private String name;
     /** The title of the image assigned by NASA */
@@ -27,8 +28,6 @@ public class Image {
     /** The Bitmap with the actual image */
     private Bitmap imageRaster;
 
-    /** Static field used to assign unique IDs */
-    private static int nextID = 0;
     /** Static constants used for loading/extracting data from a Bundle */
     public static final String ID_KEY = "ImageID";
     public static final String NAME_KEY = "ImageName";
@@ -47,28 +46,13 @@ public class Image {
      */
     public Image(String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
             throws IllegalFileExtensionException {
-        this.id = setID();
+        this.id = UUID.randomUUID();
         this.name = null;
         this.title = title;
         this.downloadDate = downloadDate;
         this.imageDate = imageDate;
         this.fileName = validateFileName(fileName);
         this.imageRaster = null;
-    }
-
-    /**
-     * Constructor used when downloading a new Image with a user-given name.
-     *
-     * @param name the user-provided name of the image
-     * @param title the title of the image as provided by NASA
-     * @param downloadDate the date the image was downloaded
-     * @param imageDate the date the image was Image of the Day
-     * @param fileName the name of the JPEG file
-     */
-    public Image(String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
-            throws IllegalFileExtensionException {
-        this(title, downloadDate, imageDate, fileName);
-        this.name = name;
     }
 
     /**
@@ -81,13 +65,13 @@ public class Image {
      * @param imageDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(int id, String name, String title, String downloadDate, String imageDate, String fileName)
+    public Image(UUID id, String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = id;
         this.name = name;
         this.title = title;
-        this.downloadDate = new CustomDate(downloadDate);
-        this.imageDate = new CustomDate(imageDate);
+        this.downloadDate = downloadDate;
+        this.imageDate = imageDate;
         this.fileName = validateFileName(fileName);
         this.imageRaster = null;
     }
@@ -97,7 +81,7 @@ public class Image {
      *
      * @return the image's ID
      */
-    public int getId() { return id; }
+    public UUID getId() { return id; }
 
     /**
      * If there is a user-defined name, returns it, otherwise, returns the NASA-determined title.
@@ -168,7 +152,7 @@ public class Image {
     public Bundle getBundle() {
         Bundle b = new Bundle();
 
-        b.putInt(ID_KEY, id);
+        b.putString(ID_KEY, id.toString());
         b.putString(NAME_KEY, name);
         b.putString(TITLE_KEY, title);
         b.putString(DL_DATE_KEY, downloadDate.toString());
@@ -176,15 +160,6 @@ public class Image {
         b.putString(FILE_NAME_KEY, fileName);
 
         return b;
-    }
-
-    /**
-     * Returns the ID to be used and increments the counter for the next ID
-     *
-     * @return a new ID
-     */
-    private static int setID() {
-        return nextID++;
     }
 
     /**

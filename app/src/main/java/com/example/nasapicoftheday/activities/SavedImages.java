@@ -196,7 +196,7 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
          */
         @Override
         public long getItemId(int position) {
-            return imageList.get(position).getId();
+            return position;
         }
 
         /**

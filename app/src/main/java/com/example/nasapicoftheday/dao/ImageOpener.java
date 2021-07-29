@@ -39,7 +39,7 @@ public class ImageOpener extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE +
-                " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " (" + COL_ID + " text PRIMARY KEY, " +
                 COL_FILE_NAME + " text, " +
                 COL_NAME + " text, " +
                 COL_TITLE + " text, " +

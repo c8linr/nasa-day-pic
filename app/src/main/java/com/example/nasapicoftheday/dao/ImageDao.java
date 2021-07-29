@@ -10,6 +10,7 @@ import com.example.nasapicoftheday.datamodel.Image;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The ImageDao class is used to read and write Image data to/from the database.
@@ -26,10 +27,11 @@ public class ImageDao {
         List<Image> images = new ArrayList<>();
         ImageOpener opener = new ImageOpener(context);
         SQLiteDatabase database = opener.getWritableDatabase();
-        String[] columns = {ImageOpener.COL_NAME, ImageOpener.COL_TITLE, ImageOpener.COL_DOWNLOAD_DATE, ImageOpener.COL_IMAGE_DATE, ImageOpener.COL_FILE_NAME};
+        String[] columns = {ImageOpener.COL_ID, ImageOpener.COL_NAME, ImageOpener.COL_TITLE, ImageOpener.COL_DOWNLOAD_DATE, ImageOpener.COL_IMAGE_DATE, ImageOpener.COL_FILE_NAME};
         Cursor results = database.query(false, ImageOpener.TABLE, columns,
                 null, null, null, null, null, null);
 
+        int idColIndex = results.getColumnIndex(ImageOpener.COL_ID);
         int nameColIndex = results.getColumnIndex(ImageOpener.COL_NAME);
         int titleColIndex = results.getColumnIndex(ImageOpener.COL_TITLE);
         int downloadDateColIndex = results.getColumnIndex(ImageOpener.COL_DOWNLOAD_DATE);
@@ -37,13 +39,14 @@ public class ImageDao {
         int fileNameColIndex = results.getColumnIndex(ImageOpener.COL_FILE_NAME);
 
         while(results.moveToNext()) {
+            String imageId = results.getString(idColIndex);
             String imageName = results.getString(nameColIndex);
             String imageTitle = results.getString(titleColIndex);
             CustomDate imageDownloadDate = new CustomDate(results.getString(downloadDateColIndex));
             CustomDate imageDate =  new CustomDate(results.getString(imageDateColIndex));
             String imageFileName = results.getString(fileNameColIndex);
 
-            images.add(new Image(imageName, imageTitle, imageDownloadDate, imageDate, imageFileName));
+            images.add(new Image(UUID.fromString(imageId), imageName, imageTitle, imageDownloadDate, imageDate, imageFileName));
         }
 
         results.close();
@@ -65,6 +68,7 @@ public class ImageDao {
         SQLiteDatabase database = opener.getWritableDatabase();
 
         ContentValues newRow = new ContentValues();
+        newRow.put(ImageOpener.COL_ID, image.getId().toString());
         newRow.put(ImageOpener.COL_NAME, image.getName());
         newRow.put(ImageOpener.COL_TITLE, image.getTitle());
         newRow.put(ImageOpener.COL_DOWNLOAD_DATE, image.getDownloadDate().toString());
@@ -90,8 +94,8 @@ public class ImageDao {
         ImageOpener opener = new ImageOpener(context);
         SQLiteDatabase database = opener.getWritableDatabase();
 
-        String whereClause = ImageOpener.COL_TITLE + "=?";
-        String[] whereArgs = {image.getTitle()};
+        String whereClause = ImageOpener.COL_ID + "=?";
+        String[] whereArgs = {image.getId().toString()};
 
         int result = database.delete(ImageOpener.TABLE, whereClause, whereArgs);
 
@@ -114,14 +118,15 @@ public class ImageDao {
         SQLiteDatabase database = opener.getWritableDatabase();
 
         ContentValues row = new ContentValues();
+        row.put(ImageOpener.COL_ID, image.getId().toString());
         row.put(ImageOpener.COL_NAME, newName);
         row.put(ImageOpener.COL_TITLE, image.getTitle());
         row.put(ImageOpener.COL_DOWNLOAD_DATE, image.getDownloadDate().toString());
         row.put(ImageOpener.COL_IMAGE_DATE, image.getImageDate().toString());
         row.put(ImageOpener.COL_FILE_NAME, image.getFileName());
 
-        String whereClause = ImageOpener.COL_TITLE + "=?;";
-        String[] whereArgs = {image.getTitle()};
+        String whereClause = ImageOpener.COL_ID + "=?;";
+        String[] whereArgs = {image.getId().toString()};
 
         int result = database.update(ImageOpener.TABLE, row, whereClause, whereArgs);
 
