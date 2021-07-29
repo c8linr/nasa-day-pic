@@ -72,7 +72,8 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
         imageListView.setOnItemClickListener( (parent, view, pos, id) -> {
             Image selectedImage = imageList.get(pos);
             Intent viewImage = new Intent(SavedImages.this, EmptyActivity.class);
-            startActivity(viewImage, selectedImage.getBundle());
+            viewImage.putExtras(selectedImage.getBundle());
+            startActivity(viewImage);
         });
     }
 

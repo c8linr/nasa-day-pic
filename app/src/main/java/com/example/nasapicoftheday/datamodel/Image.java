@@ -77,6 +77,20 @@ public class Image {
     }
 
     /**
+     * Constructor used to create an Image object from a Bundle
+     *
+     * @param bundle the Bundle with the Image data
+     */
+    public Image(Bundle bundle) {
+        id = UUID.fromString(bundle.getString(ID_KEY));
+        name = bundle.getString(NAME_KEY);
+        title = bundle.getString(TITLE_KEY);
+        downloadDate = new CustomDate(bundle.getString(DL_DATE_KEY));
+        imageDate = new CustomDate(bundle.getString(NASA_DATE_KEY));
+        fileName = bundle.getString(FILE_NAME_KEY);
+    }
+
+    /**
      * Returns the image's unique ID.
      *
      * @return the image's ID
