@@ -283,7 +283,8 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
             saveButton.setEnabled(true);
             Intent goToSavedImages = new Intent(parentActivity, SavedImages.class);
             saveButton.setOnClickListener((click) -> {
-                pic.setName(suggestedName.getText().toString());
+                ImageDao dao = new ImageDao();
+                dao.updateImage(pic, suggestedName.getText().toString(), parentActivity);
                 parentActivity.startActivity(goToSavedImages);
             });
         }

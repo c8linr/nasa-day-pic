@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.nasapicoftheday.R;
 import com.example.nasapicoftheday.activities.SavedImages;
@@ -49,6 +50,9 @@ public class ViewImage extends Fragment {
         // Initialize the widgets
         ImageView imageView = result.findViewById(R.id.fragment_view_image);
         imageView.setImageBitmap(imageObject.loadImage(parentActivity));
+
+        TextView imageName = result.findViewById(R.id.fragment_image_name);
+        imageName.setText(imageObject.getName());
 
         Button editButton = result.findViewById(R.id.fragment_edit_button);
         // TODO: some kind of dialog to edit the name
