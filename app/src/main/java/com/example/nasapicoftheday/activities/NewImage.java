@@ -79,9 +79,10 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
             int month = result.getInt(CustomDate.MONTH_KEY);
             int day = result.getInt(CustomDate.DAY_KEY);
             CustomDate date = new CustomDate(year, month, day);
-            dateSelected.append(" " + getMonthName(month) +
-                " " + day +
-                ", " + year);
+            String dateString = " " + getMonthName(month) +
+                    " " + day +
+                    ", " + year;
+            dateSelected.setText(getString(R.string.new_selected_date) + dateString);
             confirmDateButton.setEnabled(true);
             goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
         });
