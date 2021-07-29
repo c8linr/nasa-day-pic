@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,6 @@ import com.google.android.material.snackbar.Snackbar;
 public class ViewImage extends Fragment {
     AppCompatActivity parentActivity;
 
-    private static final String TAG = "ViewImageFragment";
-
     public ViewImage() {}
 
     @Override
@@ -37,12 +34,10 @@ public class ViewImage extends Fragment {
                              Bundle savedInstanceState) {
         // Retrieve the image data and create an Image object
         if(getArguments() == null) {
-            Log.e(TAG, "Arguments are null");
             Intent backToSavedImages = new Intent(parentActivity.getBaseContext(), SavedImages.class);
             parentActivity.startActivity(backToSavedImages);
         }
         Image imageObject = new Image(getArguments());
-        Log.e(TAG, "Image ID: " + imageObject.getId().toString() + " Image Name: " + imageObject.getName());
 
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_image, container, false);
