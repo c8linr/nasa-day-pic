@@ -8,12 +8,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.nasapicoftheday.R;
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +28,10 @@ import com.google.android.material.navigation.NavigationView;
  * @author Caitlin Ross
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String PREFS_FILE = "NasaPicPrefs";
+    private static final String NAME_KEY = "UserName";
+    //EditText personalWelcome;
+
     /**
      * Creates the Main Activity and adds the functionality.
      *
@@ -33,6 +41,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Load the saved preferences file and check for a saved name
+        SharedPreferences getPreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+        String savedName = getPreferences.getString(NAME_KEY, "");
+
+        // Set up the personalized welcome
+        EditText personalWelcome = findViewById(R.id.welcome_personal);
+        Button saveNameButton = findViewById(R.id.welcome_save_name);
+
+        // If there is a saved name, show the personalized welcome
+        if(!savedName.isEmpty()){
+            showPersonalizedWelcome(savedName);
+        } // Otherwise, allow the user to input their name
+        else {
+            personalWelcome.setEnabled(true);
+            personalWelcome.setHint(R.string.welcome_name_prompt);
+            saveNameButton.setVisibility(View.VISIBLE);
+        }
+
+        // Add listener to the save name button
+        saveNameButton.setOnClickListener( (click) -> {
+            // Extract the name from the widget
+            String name = personalWelcome.getText().toString();
+
+            // Save the name to file
+            SharedPreferences savePreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = savePreferences.edit();
+            editor.putString(NAME_KEY, name);
+            editor.apply();
+
+            // Update the GUI accordingly
+            showPersonalizedWelcome(name);
+        });
 
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,6 +98,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button savedImagesButton = findViewById(R.id.welcome_saved_button);
         Intent goToSavedImages = new Intent(this, SavedImages.class);
         savedImagesButton.setOnClickListener( (click) -> startActivity(goToSavedImages));
+    }
+
+    private void showPersonalizedWelcome(String name) {
+        // Get references to the widgets
+        EditText personalWelcome = findViewById(R.id.welcome_personal);
+        Button saveNameButton = findViewById(R.id.welcome_save_name);
+
+        // Build the personalized message
+        String personalizedMessage = getString(R.string.welcome_back) + " " + name + "!";
+
+        // Disable editing, display the message, and remove the button
+        personalWelcome.setEnabled(false);
+        personalWelcome.setText(personalizedMessage);
+        personalWelcome.setTextColor(getResources().getColor(R.color.black));
+        saveNameButton.setVisibility(View.GONE);
     }
 
     /**

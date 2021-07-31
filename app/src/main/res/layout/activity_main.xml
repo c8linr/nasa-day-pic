@@ -30,13 +30,28 @@
             android:text="@string/welcome_msg"
             android:textSize="44sp" />
 
-        <TextView
-            android:id="@+id/welcome_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingVertical="40sp"
-            android:textSize="20sp"/>
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/welcome_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="20"
+                android:paddingVertical="40sp"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/welcome_save_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/welcome_save_name"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/welcome_new_button"

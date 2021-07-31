@@ -16,6 +16,8 @@
     <string name="welcome_saved_button">View your saved images</string>
     <string name="welcome_help_title">Welcome Page Help</string>
     <string name="welcome_help_msg">To download a new NASA Image of the Day, click the \"Download a new image\" button. To view any images that have already been saved, click the \"View your saved images\" button.</string>
+    <string name="welcome_name_prompt">Enter your name here (optional)</string>
+    <string name="welcome_save_name">Save</string>
     <string name="fragment_edit_button">Edit Name</string>
     <string name="fragment_delete_button">Delete Image</string>
     <string name="fragment_undo_delete">Undo?</string>

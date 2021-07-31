@@ -16,6 +16,8 @@
     <string name="welcome_saved_button">Voyez vos images enregistrées</string>
     <string name="welcome_help_title">Aide pour l\'acceuil</string>
     <string name="welcome_help_msg">Pour téléchargez une nouvelle image du jour de NASA, cliquez le bouton qui dit \"Téléchargez une nouvell image\". Pour voir les images qui sont déja téléchargées, cliquez le bouton qui dit \"Voyez vos image enregistrées\".</string>
+    <string name="welcome_name_prompt">Tapez votre nom ici (facultative)</string>
+    <string name="welcome_save_name">Enregistrez</string>
     <string name="fragment_edit_button">Éditez le nom</string>
     <string name="fragment_delete_button">Supprimez l\'image</string>
     <string name="fragment_undo_delete">Annulez?</string>
