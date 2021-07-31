@@ -28,9 +28,9 @@ import com.google.android.material.navigation.NavigationView;
  * @author Caitlin Ross
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    /** Static constants for the Saved Preferences file name and key(s) */
     private static final String PREFS_FILE = "NasaPicPrefs";
     private static final String NAME_KEY = "UserName";
-    //EditText personalWelcome;
 
     /**
      * Creates the Main Activity and adds the functionality.
@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         savedImagesButton.setOnClickListener( (click) -> startActivity(goToSavedImages));
     }
 
+    /**
+     * Displays the personalized welcome and adjusts the GUI accordingly.
+     *
+     * @param name the name of the user to be used in the welcome message
+     */
     private void showPersonalizedWelcome(String name) {
         // Get references to the widgets
         EditText personalWelcome = findViewById(R.id.welcome_personal);
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Disable editing, display the message, and remove the button
         personalWelcome.setEnabled(false);
         personalWelcome.setText(personalizedMessage);
-        personalWelcome.setTextColor(getResources().getColor(R.color.black));
+        personalWelcome.setTextColor(getResources().getColor(R.color.design_default_color_on_secondary, null));
         saveNameButton.setVisibility(View.GONE);
     }
 
