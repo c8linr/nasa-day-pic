@@ -7,6 +7,12 @@
     <string name="menu_saved_images">Saved Images</string>
     <string name="drawer_open_desc">Open the navigation menu</string>
     <string name="drawer_close_desc">Close the navigation menu</string>
+    <string name="drawer_version">Version 1.0</string>
+    <string name="drawer_header_welcome">Welcome Page</string>
+    <string name="drawer_header_new_image">New Image</string>
+    <string name="drawer_header_download_image">Download Image</string>
+    <string name="drawer_header_saved_images">Saved Images</string>
+    <string name="drawer_image_description">NASA Logo</string>
     <string name="help_close">OK</string>
     <string name="default_image_name">Unnamed Image</string>
     <string name="default_image_desc">No description</string>

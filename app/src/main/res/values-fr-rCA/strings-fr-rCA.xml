@@ -7,6 +7,12 @@
     <string name="menu_saved_images">Images enregistrées</string>
     <string name="drawer_open_desc">Ouvrez le menu de navigation</string>
     <string name="drawer_close_desc">Fermez le menu de navigation</string>
+    <string name="drawer_version">Version 1.0</string>
+    <string name="drawer_header_welcome">Page d\'acceuil</string>
+    <string name="drawer_header_new_image">Nouveau image</string>
+    <string name="drawer_header_download_image">Téléchargez une image</string>
+    <string name="drawer_header_saved_images">Images enregistrées</string>
+    <string name="drawer_image_description">Logo de NASA</string>
     <string name="help_close">D\'accord</string>
     <string name="default_image_name">Image sans nom</string>
     <string name="default_image_desc">Pas de description</string>

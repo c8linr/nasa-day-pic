@@ -1,12 +1,9 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
 /**
@@ -80,14 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         // Set up the navigation drawer
-        DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                toolbar, R.string.drawer_open_desc, R.string.drawer_close_desc);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.drawer_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationDrawer.setUp(this, this, toolbar, NavigationDrawer.CallingActivity.MAIN);
 
         // Pressing the "new image" button takes the user to the New Image activity
         Button newImageButton = findViewById(R.id.welcome_new_button);
@@ -166,31 +157,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Directs the user to the correct activity when an option from the navigation drawer is selected.
+     * Delegates the navigation logic to the NavigationDrawer class.
      *
      * @param item the menu item selected
-     * @return true
+     * @return false
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.drawer_welcome_button:
-                Intent goToWelcome = new Intent(this, MainActivity.class);
-                startActivity(goToWelcome);
-                break;
-            case R.id.drawer_new_image_button:
-                Intent goToNewImage = new Intent(this, NewImage.class);
-                startActivity(goToNewImage);
-                break;
-            case R.id.drawer_saved_images_button:
-                Intent goToSavedImages = new Intent(this, SavedImages.class);
-                startActivity(goToSavedImages);
-                break;
-        }
-
-        DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-
+        NavigationDrawer.navigate(item, this);
         return false;
     }
 }

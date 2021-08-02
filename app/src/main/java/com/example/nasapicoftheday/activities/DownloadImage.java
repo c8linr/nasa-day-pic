@@ -29,6 +29,7 @@ import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.CustomDate;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
@@ -65,14 +66,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
 
         // Set up the navigation drawer
-        DrawerLayout drawerLayout = findViewById(R.id.download_image_drawer_layout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                toolbar, R.string.drawer_open_desc, R.string.drawer_close_desc);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.drawer_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationDrawer.setUp(this, this, toolbar, NavigationDrawer.CallingActivity.DOWNLOAD);
 
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
@@ -129,31 +123,14 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
     }
 
     /**
-     * Directs the user to the correct activity when an option from the navigation drawer is selected.
+     * Delegates the navigation logic to the NavigationDrawer class.
      *
      * @param item the menu item selected
      * @return true
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.drawer_welcome_button:
-                Intent goToWelcome = new Intent(this, MainActivity.class);
-                startActivity(goToWelcome);
-                break;
-            case R.id.drawer_new_image_button:
-                Intent goToNewImage = new Intent(this, NewImage.class);
-                startActivity(goToNewImage);
-                break;
-            case R.id.drawer_saved_images_button:
-                Intent goToSavedImages = new Intent(this, SavedImages.class);
-                startActivity(goToSavedImages);
-                break;
-        }
-
-        DrawerLayout drawerLayout = findViewById(R.id.download_image_drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-
+        NavigationDrawer.navigate(item, this);
         return false;
     }
 

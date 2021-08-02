@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="bottom"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <ImageView
+        android:id="@+id/nav_header_nasa_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/drawer_image_description"
+        android:src="@drawable/nasa_logo"
+        android:adjustViewBounds="true"/>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:id="@+id/nav_header_text"
-        android:text="@string/app_name" />
-</LinearLayout>
+        android:id="@+id/nav_header_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/nav_header_version"
+        android:layout_marginBottom="2dp"
+        android:text="@string/app_name"
+        android:textColor="@color/design_default_color_on_primary"
+        android:shadowColor="@color/black"
+        android:shadowRadius="5"/>
+
+    <TextView
+        android:id="@+id/nav_header_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/nav_header_nasa_logo"
+        android:layout_alignStart="@id/nav_header_nasa_logo"
+        android:layout_marginBottom="2dp"
+        android:text="@string/drawer_version"
+        android:textColor="@color/design_default_color_on_primary"
+        android:shadowColor="@color/black"
+        android:shadowRadius="5"/>
+
+    <TextView
+        android:id="@+id/nav_header_activity_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/nav_header_nasa_logo"
+        android:layout_alignEnd="@id/nav_header_nasa_logo"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/design_default_color_on_primary"
+        android:shadowColor="@color/black"
+        android:shadowRadius="5"/>
+
+</RelativeLayout>
