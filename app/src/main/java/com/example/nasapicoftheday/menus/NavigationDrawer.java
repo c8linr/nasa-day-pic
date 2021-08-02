@@ -14,6 +14,9 @@ import com.example.nasapicoftheday.activities.NewImage;
 import com.example.nasapicoftheday.activities.SavedImages;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * The NavigationDrawer class contains the logic for the navigation drawer.
+ */
 public class NavigationDrawer {
     /**
      * Directs the user to the correct activity when an option from the navigation drawer is selected.
