@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Image">
+    tools:context=".fragments.ViewImage">
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/fragment_view_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/default_image_desc"/>
+
+    <TextView
+        android:id="@+id/fragment_image_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fragment_button_bar"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:text="@string/default_image_name"/>
+
+    <LinearLayout
+        android:id="@+id/fragment_button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:paddingVertical="20sp">
+
+        <Button
+            android:id="@+id/fragment_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@android:style/ButtonBar"
+            android:text="@string/fragment_edit_button"/>
+
+        <Button
+            android:id="@+id/fragment_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@android:style/ButtonBar"
+            android:text="@string/fragment_delete_button"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

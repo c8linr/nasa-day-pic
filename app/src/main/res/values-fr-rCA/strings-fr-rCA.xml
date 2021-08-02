@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nasa Image du Jour</string>
+    <string name="menu_welcome">Acceuil</string>
+    <string name="menu_help">Aide</string>
+    <string name="menu_new_image">Nouvelle image</string>
+    <string name="menu_saved_images">Images enregistrées</string>
+    <string name="drawer_open_desc">Ouvrez le menu de navigation</string>
+    <string name="drawer_close_desc">Fermez le menu de navigation</string>
+    <string name="help_close">D\'accord</string>
+    <string name="default_image_name">Image sans nom</string>
+    <string name="default_image_desc">Pas de description</string>
+    <string name="welcome_msg">Bienvenue au appli de Nasa Image du Jour!</string>
+    <string name="welcome_back">"Bienvenue "</string>
+    <string name="welcome_new_button">Téléchargez une nouvelle image</string>
+    <string name="welcome_saved_button">Voyez vos images enregistrées</string>
+    <string name="welcome_help_title">Aide pour l\'acceuil</string>
+    <string name="welcome_help_msg">Pour téléchargez une nouvelle image du jour de NASA, cliquez le bouton qui dit \"Téléchargez une nouvell image\". Pour voir les images qui sont déja téléchargées, cliquez le bouton qui dit \"Voyez vos image enregistrées\".</string>
+    <string name="welcome_name_prompt">Tapez votre nom ici (facultative)</string>
+    <string name="welcome_save_name">Enregistrez</string>
+    <string name="fragment_edit_button">Éditez le nom</string>
+    <string name="fragment_delete_button">Supprimez l\'image</string>
+    <string name="fragment_undo_delete">Annulez?</string>
+    <string name="fragment_delete_msg">L\'image est supprimée</string>
+    <string name="new_select_date_button">Choisissez une date</string>
+    <string name="new_selected_date">Date sélectionné:</string>
+    <string name="new_confirm_button">Confirmez  le téléchargement</string>
+    <string name="new_image_help_title">Aide pour choisir une nouvelle image</string>
+    <string name="new_image_help_msg">Pour choisir une nouvelle Image du Jour de NASA, choisissez une date puis cliquez le bouton qui dit \"Confirmez le téléchargement\".</string>
+    <string name="download_progress_label">Téléchargement en cours…</string>
+    <string name="download_name_image">"Choisissez un nom pour l'image (facultative): "</string>
+    <string name="download_image_name_field">Nom facultative</string>
+    <string name="download_save_name_button">Enregistrez</string>
+    <string name="download_complete_msg">Téléchargement complet</string>
+    <string name="download_image_help_title">Aide pour télécharger une nouvelle image</string>
+    <string name="download_image_help_msg">L\'image doit télécharger automatiquement. Vouz pouvez entrer un nouvel nom pour l\'image avant d\'enregistrer l\'image a la base de données.</string>
+    <string name="saved_images_help_title">Aide pour voir les images enregistrées</string>
+    <string name="saved_images_help_msg">Pour voir un image enregistrée, cliquez le nom d\'image.</string>
+</resources>

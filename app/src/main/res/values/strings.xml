@@ -1,5 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Nasa Pic of the Day</string>
-    <string name="main_welcome_msg">Welcome to the Nasa Pic of the Day App!</string>
-    <string name="main_welcome_back">Welcome back</string>
+    <string name="menu_welcome">Welcome Page</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_new_image">New Image</string>
+    <string name="menu_saved_images">Saved Images</string>
+    <string name="drawer_open_desc">Open the navigation menu</string>
+    <string name="drawer_close_desc">Close the navigation menu</string>
+    <string name="help_close">OK</string>
+    <string name="default_image_name">Unnamed Image</string>
+    <string name="default_image_desc">No description</string>
+    <string name="welcome_msg">Welcome to the Nasa Pic of the Day app!</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="welcome_new_button">Download a new image</string>
+    <string name="welcome_saved_button">View your saved images</string>
+    <string name="welcome_help_title">Welcome Page Help</string>
+    <string name="welcome_help_msg">To download a new NASA Image of the Day, click the \"Download a new image\" button. To view any images that have already been saved, click the \"View your saved images\" button.</string>
+    <string name="welcome_name_prompt">Enter your name here (optional)</string>
+    <string name="welcome_save_name">Save</string>
+    <string name="fragment_edit_button">Edit Name</string>
+    <string name="fragment_delete_button">Delete Image</string>
+    <string name="fragment_undo_delete">Undo?</string>
+    <string name="fragment_delete_msg">Image has been deleted</string>
+    <string name="new_select_date_button">Select Date</string>
+    <string name="new_selected_date">Date Selected:</string>
+    <string name="new_confirm_button">Confirm Download</string>
+    <string name="new_image_help_title">New Image Help</string>
+    <string name="new_image_help_msg">To download a new NASA Image of the Day, select the date that the image was Image of the Day, then click the \"Confirm Download\" button.</string>
+    <string name="download_progress_label">Download in progress…</string>
+    <string name="download_name_image">Choose a name for the image (optional):</string>
+    <string name="download_image_name_field">Optional Name</string>
+    <string name="download_save_name_button">Save</string>
+    <string name="download_complete_msg">Download complete</string>
+    <string name="download_image_help_title">Download Image Help</string>
+    <string name="download_image_help_msg">The image should download automatically. Here you may choose a name for the image before saving the image to the database.</string>
+    <string name="saved_images_help_title">Saved Images Help</string>
+    <string name="saved_images_help_msg">To view a saved image, click on the desired image\'s entry.</string>
 </resources>
