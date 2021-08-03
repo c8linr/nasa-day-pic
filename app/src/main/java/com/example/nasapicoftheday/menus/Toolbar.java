@@ -14,9 +14,10 @@ import com.example.nasapicoftheday.activities.SavedImages;
 
 /**
  * The Toolbar class is used to keep the navigation logic in one place.
+ *
+ * @author Caitlin Ross
  */
 public class Toolbar {
-
     /**
      * Directs the user to the appropriate activity.
      *

@@ -88,7 +88,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
     }
 
     /**
-     * Directs the user to the correct activity when an option from the toolbar is selected.
+     * Delegates the navigation logic to the menus.Toolbar class.
      *
      * @param item the menu item selected
      * @return true
@@ -207,7 +207,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
         }
 
         /**
-         * Called when the background task is finished executing.
+         * Updates the GUI when the background task is finished executing.
          *
          * @param pic the downloaded image
          */
@@ -298,7 +298,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
         }
 
         /**
-         * Downloads the image from the given NASA url
+         * Downloads the image from the given URL.
          *
          * @param imageURL the URL where the image is located
          * @return a Bitmap of the image

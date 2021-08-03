@@ -98,10 +98,8 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
 
-
-
     /**
-     * Inflates the toolbar's layout.
+     * Inflates the toolbar's layout when the menu is created.
      *
      * @param m the menu being created
      * @return true
@@ -114,7 +112,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     /**
-     * Directs the user to the correct activity when an option from the toolbar is selected.
+     * Delegates the navigation logic to the menus.Toolbar class.
      *
      * @param item the menu item selected
      * @return true
@@ -143,9 +141,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
      public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
-        /**
-         * Static constant provided to prevent errors when accessing the Bundle with the date.
-         */
+        /** Static constant provided to prevent errors when accessing the Bundle with the date. */
          public static final String DATE_REQUEST_KEY = "REQUEST_DATE";
 
          /**
@@ -175,7 +171,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         }
 
          /**
-          * Creates a Bundle with the date as integers to be accessed by the host.
+          * Sends the Date to the parent activity.
           *
           * @param view the DatePicker object being used
           * @param year the year selected by the user

@@ -27,10 +27,14 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 /**
- * The SavedImages class contains the functionality for the Saved Images activity
+ * The SavedImages class contains the functionality for the Saved Images activity.
+ *
+ * @author Caitlin Ross
  */
 public class SavedImages extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    /** List of Image objects */
     ArrayList<Image> imageList;
+    /** Adapter to populate the ListView */
     ImageListAdapter adapter;
 
     /**
@@ -68,6 +72,9 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
         });
     }
 
+    /**
+     * When the user comes back to the activity, the list of images is re-loaded from the database.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -94,7 +101,7 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * Directs the user to the correct activity when an option from the toolbar is selected.
+     * Delegates the navigation logic to the menus.Toolbar class.
      *
      * @param item the menu item selected
      * @return true
@@ -121,7 +128,6 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
      * The ImageListAdapter class is used to link the list of Image objects to the ListView widget
      */
     private class ImageListAdapter extends BaseAdapter {
-
         /**
          * Returns the number of items in the list.
          *
@@ -180,7 +186,7 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
 
             // Set the image date (the day it was NASA's Image of the Day)
             TextView imageDate = convertView.findViewById(R.id.image_list_date);
-            imageDate.setText(i.getImageDate().toString());
+            imageDate.setText(i.getNasaDate().toString());
 
             // Set the image name (user-defined)
             TextView imageName = convertView.findViewById(R.id.image_list_name);

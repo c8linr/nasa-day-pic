@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 /**
  * The CustomDate class is a custom version that only holds Year, Month, and Day.
+ *
+ * @author Caitlin Ross
  */
 public class Date {
     /** For the purposes of this program, the year must be between 1995 and the current year */
@@ -17,7 +19,7 @@ public class Date {
     /** Day of the month represented as an integer between 1-31 */
     private final Integer day;
 
-    // Private constants used to create/extract data from a Bundle
+    /** The following are constants used to extract data from a Bundle */
     public static final String YEAR_KEY = "Year";
     public static final String MONTH_KEY = "Month";
     public static final String DAY_KEY = "Day";
@@ -77,7 +79,7 @@ public class Date {
     }
 
     /**
-     * Constructor the creates a new CustomDate object from a Bundle.
+     * Constructor that creates a new CustomDate object from a Bundle.
      *
      * @param b the Bundle containing the year, month, and day as ints
      * @throws IllegalArgumentException if any ints are invalid
@@ -99,7 +101,7 @@ public class Date {
     }
 
     /**
-     * Determines if the dates match.
+     * Returns true if the dates match.
      *
      * @param d the date to compare
      * @return true if the year, month, and day are the same
@@ -121,7 +123,7 @@ public class Date {
     /**
      * Creates a Bundle containing the relevant data.
      *
-     * @return a Bundle containing the CustomDate data
+     * @return a Bundle containing the Date's data as integers
      */
     public Bundle getBundle() {
         Bundle b = new Bundle();
@@ -134,7 +136,7 @@ public class Date {
     }
 
     /**
-     * Returns the name of the month, given an integer from 0-11.
+     * Returns the name of the month, given an integer from 1-12.
      *
      * @param month an integer from 1-12 representing a month
      * @return the full name of the month, capitalized, or a blank string if the argument is invalid
@@ -170,7 +172,7 @@ public class Date {
     }
 
     /**
-     * Returns a String version of the year.
+     * Returns a String representation of the year.
      *
      * @return the year as a 4-character String (1995-current year)
      */
@@ -179,7 +181,7 @@ public class Date {
     }
 
     /**
-     * Returns a String version of the month.
+     * Returns a String representation of the month.
      *
      * @return the month as a 2-character String (01-12)
      */
@@ -192,7 +194,7 @@ public class Date {
     }
 
     /**
-     * Returns a String version of the day of the month.
+     * Returns a String representation of the day of the month.
      *
      * @return the day of the month as a 2-character String (01-31)
      */

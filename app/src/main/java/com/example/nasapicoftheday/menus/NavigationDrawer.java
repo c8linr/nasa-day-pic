@@ -19,6 +19,8 @@ import com.google.android.material.navigation.NavigationView;
 
 /**
  * The NavigationDrawer class contains the logic for the navigation drawer.
+ *
+ * @author Caitlin Ross
  */
 public class NavigationDrawer {
     /**
@@ -75,6 +77,4 @@ public class NavigationDrawer {
         TextView activityName = headerView.findViewById(R.id.nav_header_activity_name);
         activityName.setText(calledBy.getActivityName(parentActivity));
     }
-
-
 }

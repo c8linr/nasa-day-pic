@@ -1,14 +1,14 @@
 package com.example.nasapicoftheday.menus;
 
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.nasapicoftheday.R;
 
 /**
- * The ctivity enum represents the possible activities that can use the navigation drawer.
+ * The Activity enum represents the possible activities that can use the navigation drawer.
+ *
+ * @author Caitlin Ross
  */
 public enum Activity {
     MAIN(R.id.main_drawer_layout,
@@ -34,11 +34,12 @@ public enum Activity {
     private final int helpMessageStringID;
 
     /**
-     * Constructor, initializes the ID of the relevant DrawerLayout.
+     * Constructor, initializes the IDs.
      *
      * @param drawerLayoutID the resource ID associated with the DrawerLayout widget
-     * @param helpTitleStringID the resource ID associated with the help dialog title
-     * @param helpMessageStringID the resource ID associated with the help dialog message
+     * @param drawerActivityNameID the String ID associated with the name of the current activity
+     * @param helpTitleStringID the String ID associated with the help dialog title
+     * @param helpMessageStringID the String ID associated with the help dialog message
      */
     Activity(int drawerLayoutID, int drawerActivityNameID, int helpTitleStringID, int helpMessageStringID) {
         this.drawerLayoutID = drawerLayoutID;

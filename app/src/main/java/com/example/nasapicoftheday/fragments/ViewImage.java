@@ -24,12 +24,19 @@ import com.google.android.material.snackbar.Snackbar;
 /**
  * A Fragment to view the image selected in the Saved Images activity.
  *
+ * @author Caitlin Ross
  */
 public class ViewImage extends Fragment {
     AppCompatActivity parentActivity;
 
-    public ViewImage() {}
-
+    /**
+     * Creates the View Image Fragment and adds the functionality.
+     *
+     * @param inflater the object that will inflate the Fragment's layout
+     * @param container the ViewGroup that will contain the Fragment
+     * @param savedInstanceState data supplied if the activity is being re-initialized, otherwise null
+     * @return the inflated View representing the Fragment
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,6 +71,11 @@ public class ViewImage extends Fragment {
         return result;
     }
 
+    /**
+     * Sets the context for the fragment when it is attached.
+     *
+     * @param context the context that called this method
+     */
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         parentActivity = (AppCompatActivity)context;

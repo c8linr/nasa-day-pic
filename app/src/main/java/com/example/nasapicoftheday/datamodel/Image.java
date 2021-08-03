@@ -11,6 +11,8 @@ import java.util.UUID;
 
 /**
  * The Image class contains the actual image and relevant metadata.
+ *
+ * @author Caitlin Ross
  */
 public class Image {
     /** A unique ID assigned to the image */
@@ -22,7 +24,7 @@ public class Image {
     /** The date the image was downloaded to disk */
     private final Date downloadDate;
     /** The date the image was NASA's Image of the Day */
-    private final Date imageDate;
+    private final Date nasaDate;
     /** The name of the file on disk containing the image */
     private final String fileName;
     /** The Bitmap with the actual image */
@@ -33,7 +35,7 @@ public class Image {
     public static final String NAME_KEY = "ImageName";
     public static final String TITLE_KEY = "ImageTitle";
     public static final String DL_DATE_KEY = "DownloadDate";
-    public static final String NASA_DATE_KEY = "ImageDate";
+    public static final String NASA_DATE_KEY = "NasaDate";
     public static final String FILE_NAME_KEY = "FileName";
 
     /**
@@ -41,16 +43,16 @@ public class Image {
      *
      * @param title the title of the image as provided by NASA
      * @param downloadDate the date the image was downloaded
-     * @param imageDate the date the image was Image of the Day
+     * @param nasaDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(String title, Date downloadDate, Date imageDate, String fileName)
+    public Image(String title, Date downloadDate, Date nasaDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = UUID.randomUUID();
         this.name = null;
         this.title = title;
         this.downloadDate = downloadDate;
-        this.imageDate = imageDate;
+        this.nasaDate = nasaDate;
         this.fileName = validateFileName(fileName);
         this.imageRaster = null;
     }
@@ -62,16 +64,16 @@ public class Image {
      * @param name the user-provided name of the image
      * @param title the title of the image as provided by NASA
      * @param downloadDate the date the image was downloaded
-     * @param imageDate the date the image was Image of the Day
+     * @param nasaDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(UUID id, String name, String title, Date downloadDate, Date imageDate, String fileName)
+    public Image(UUID id, String name, String title, Date downloadDate, Date nasaDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = id;
         this.name = name;
         this.title = title;
         this.downloadDate = downloadDate;
-        this.imageDate = imageDate;
+        this.nasaDate = nasaDate;
         this.fileName = validateFileName(fileName);
         this.imageRaster = null;
     }
@@ -86,7 +88,7 @@ public class Image {
         name = bundle.getString(NAME_KEY);
         title = bundle.getString(TITLE_KEY);
         downloadDate = new Date(bundle.getString(DL_DATE_KEY));
-        imageDate = new Date(bundle.getString(NASA_DATE_KEY));
+        nasaDate = new Date(bundle.getString(NASA_DATE_KEY));
         fileName = bundle.getString(FILE_NAME_KEY);
     }
 
@@ -128,7 +130,7 @@ public class Image {
      *
      * @return the date the image was Image of the Day
      */
-    public Date getImageDate() { return imageDate; }
+    public Date getNasaDate() { return nasaDate; }
 
     /**
      * Returns the file name where the image is stored on disk.
@@ -170,7 +172,7 @@ public class Image {
         b.putString(NAME_KEY, name);
         b.putString(TITLE_KEY, title);
         b.putString(DL_DATE_KEY, downloadDate.toString());
-        b.putString(NASA_DATE_KEY, imageDate.toString());
+        b.putString(NASA_DATE_KEY, nasaDate.toString());
         b.putString(FILE_NAME_KEY, fileName);
 
         return b;

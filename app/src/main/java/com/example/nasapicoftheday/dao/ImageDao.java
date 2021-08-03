@@ -14,9 +14,10 @@ import java.util.UUID;
 
 /**
  * The ImageDao class is used to read and write Image data to/from the database.
+ *
+ * @author Caitlin Ross
  */
 public class ImageDao {
-
     /**
      * Loads all image data from the database.
      *
@@ -57,7 +58,7 @@ public class ImageDao {
     }
 
     /**
-     * Determines if the given date matches an image already in the database.
+     * Returns true if the given date matches an image already in the database.
      *
      * @param date the date to check for in the database
      * @param context the parent context
@@ -101,7 +102,7 @@ public class ImageDao {
         newRow.put(ImageOpener.COL_NAME, image.getName());
         newRow.put(ImageOpener.COL_TITLE, image.getTitle());
         newRow.put(ImageOpener.COL_DOWNLOAD_DATE, image.getDownloadDate().toString());
-        newRow.put(ImageOpener.COL_IMAGE_DATE, image.getImageDate().toString());
+        newRow.put(ImageOpener.COL_IMAGE_DATE, image.getNasaDate().toString());
         newRow.put(ImageOpener.COL_FILE_NAME, image.getFileName());
 
         long result = database.insert(ImageOpener.TABLE, null, newRow);
@@ -113,7 +114,7 @@ public class ImageDao {
     }
 
     /**
-     * Removes an image's entry from the database.
+     * Deletes an image from the database.
      *
      * @param image the image to delete from the database
      * @param context the context the method is called from
@@ -151,7 +152,7 @@ public class ImageDao {
         row.put(ImageOpener.COL_NAME, newName);
         row.put(ImageOpener.COL_TITLE, image.getTitle());
         row.put(ImageOpener.COL_DOWNLOAD_DATE, image.getDownloadDate().toString());
-        row.put(ImageOpener.COL_IMAGE_DATE, image.getImageDate().toString());
+        row.put(ImageOpener.COL_IMAGE_DATE, image.getNasaDate().toString());
         row.put(ImageOpener.COL_FILE_NAME, image.getFileName());
 
         String whereClause = ImageOpener.COL_ID + "=?;";
