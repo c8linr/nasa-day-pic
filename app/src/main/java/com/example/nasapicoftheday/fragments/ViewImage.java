@@ -27,7 +27,9 @@ import com.google.android.material.snackbar.Snackbar;
  * @author Caitlin Ross
  */
 public class ViewImage extends Fragment {
-    AppCompatActivity parentActivity;
+    private AppCompatActivity parentActivity;
+
+    public static final String IMAGE_KEY = "com.example.nasapicoftheday.DeletedImage";
 
     /**
      * Creates the View Image Fragment and adds the functionality.
@@ -65,11 +67,9 @@ public class ViewImage extends Fragment {
             // Delete the image
             ImageDao dao = new ImageDao();
             dao.deleteImage(imageObject, parentActivity);
-            // Show the Snackbar to undo the deletion
-            Snackbar.make(imageView, R.string.fragment_delete_msg, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.fragment_undo_delete, (c) -> dao.saveImage(imageObject, parentActivity)).show();
             // Go back to the Saved Images activity
             Intent backToSavedImages = new Intent(parentActivity.getBaseContext(), SavedImages.class);
+            backToSavedImages.putExtra(IMAGE_KEY, imageObject.getBundle());
             parentActivity.startActivity(backToSavedImages);
             });
 

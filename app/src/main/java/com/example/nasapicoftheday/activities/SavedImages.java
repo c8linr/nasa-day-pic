@@ -20,9 +20,11 @@ import android.widget.TextView;
 import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.fragments.ViewImage;
 import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -70,6 +72,20 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
             viewImage.putExtras(selectedImage.getBundle());
             startActivity(viewImage);
         });
+
+        // Check if the user just deleted an image
+        Bundle deleted = getIntent().getBundleExtra(ViewImage.IMAGE_KEY);
+        if(deleted != null) {
+            // Extract the image data
+            Image deletedImage = new Image(deleted);
+            // Show the Snackbar to undo the deletion
+            Snackbar.make(imageListView, R.string.fragment_delete_msg, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.fragment_undo_delete, (c) -> {
+                        dao.saveImage(deletedImage, this);
+                        updateList();
+                    })
+                    .show();
+        }
     }
 
     /**
@@ -78,13 +94,7 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Reload the images from the database
-        ImageDao dao = new ImageDao();
-        imageList = new ArrayList<>(dao.loadImages(this));
-
-        // Notify the ListView that the data has updated
-        adapter.notifyDataSetChanged();
+        updateList();
     }
 
     /**
@@ -122,6 +132,18 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         NavigationDrawer.navigate(item, this, Activity.SAVED);
         return false;
+    }
+
+    /**
+     * Reloads the images from the database and updates the ListView.
+     */
+    private void updateList() {
+        // Reload the images from the database
+        ImageDao dao = new ImageDao();
+        imageList = new ArrayList<>(dao.loadImages(this));
+
+        // Notify the ListView that the data has updated
+        adapter.notifyDataSetChanged();
     }
 
     /**

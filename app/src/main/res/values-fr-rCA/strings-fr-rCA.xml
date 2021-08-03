@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nasa Image du Jour</string>
+    <string name="app_name">NASA Image du Jour</string>
     <string name="menu_welcome">Acceuil</string>
     <string name="menu_help">Aide</string>
     <string name="menu_new_image">Nouvelle image</string>
@@ -16,7 +16,7 @@
     <string name="help_close">D\'accord</string>
     <string name="default_image_name">Image sans nom</string>
     <string name="default_image_desc">Pas de description</string>
-    <string name="welcome_msg">Bienvenue au appli de Nasa Image du Jour!</string>
+    <string name="welcome_msg">Bienvenue au appli du NASA Image du Jour!</string>
     <string name="welcome_back">"Bienvenue "</string>
     <string name="welcome_new_button">Téléchargez une nouvelle image</string>
     <string name="welcome_saved_button">Voyez vos images enregistrées</string>
