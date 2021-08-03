@@ -17,23 +17,25 @@
 
     <TextView
         android:id="@+id/nav_header_app_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/nav_header_version"
-        android:layout_marginBottom="2dp"
+        android:gravity="start"
+        android:layout_alignBottom="@id/nav_header_nasa_logo"
         android:text="@string/app_name"
         android:textColor="@color/design_default_color_on_primary"
+        android:textSize="14sp"
         android:background="@color/blue_fade"/>
 
     <TextView
         android:id="@+id/nav_header_version"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/nav_header_nasa_logo"
+        android:gravity="start"
+        android:layout_above="@id/nav_header_app_name"
         android:layout_alignStart="@id/nav_header_nasa_logo"
-        android:layout_marginBottom="2dp"
         android:text="@string/drawer_version"
         android:textColor="@color/design_default_color_on_primary"
+        android:textSize="10sp"
         android:background="@color/blue_fade"/>
 
     <TextView
@@ -42,8 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/nav_header_nasa_logo"
         android:layout_alignEnd="@id/nav_header_nasa_logo"
-        android:layout_marginBottom="2dp"
         android:textColor="@color/design_default_color_on_primary"
-        android:background="@color/blue_fade"/>
+        android:textSize="14sp"/>
 
 </RelativeLayout>

@@ -25,6 +25,10 @@
     <string name="welcome_name_prompt">Tapez votre nom ici (facultative)</string>
     <string name="welcome_save_name">Enregistrez</string>
     <string name="fragment_edit_button">Éditez le nom</string>
+    <string name="fragment_edit_dialog_title">Éditez le nom</string>
+    <string name="fragment_edit_dialog_message">Tapez un nouveau nom: </string>
+    <string name="fragment_edit_dialog_yes">Confirmer</string>
+    <string name="fragment_edit_dialog_no">Annuler</string>
     <string name="fragment_delete_button">Supprimez l\'image</string>
     <string name="fragment_undo_delete">Annulez?</string>
     <string name="fragment_delete_msg">L\'image est supprimée</string>

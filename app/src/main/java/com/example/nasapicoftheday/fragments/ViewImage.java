@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +62,22 @@ public class ViewImage extends Fragment {
         imageName.setText(imageObject.getName());
 
         Button editButton = result.findViewById(R.id.fragment_edit_button);
-        // TODO: some kind of dialog to edit the name
+        editButton.setOnClickListener( (click) -> {
+            EditText newNameField = new EditText(parentActivity);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(parentActivity);
+            alertDialogBuilder.setTitle(R.string.fragment_edit_dialog_title);
+            alertDialogBuilder.setMessage(R.string.fragment_edit_dialog_message);
+            alertDialogBuilder.setPositiveButton(R.string.fragment_edit_dialog_yes, (c, arg) -> {
+                String newName = newNameField.getText().toString();
+                ImageDao dao = new ImageDao();
+                dao.updateImage(imageObject, newName, parentActivity);
+                imageName.setText(newName);
+            });
+            alertDialogBuilder.setNegativeButton(R.string.fragment_edit_dialog_no, (c, arg) -> { });
+            alertDialogBuilder.setView(newNameField);
+            alertDialogBuilder.create().show();
+        });
 
         Button deleteButton = result.findViewById(R.id.fragment_delete_button);
         deleteButton.setOnClickListener( (click) -> {
