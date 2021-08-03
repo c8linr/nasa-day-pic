@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.nasapicoftheday.datamodel.CustomDate;
+import com.example.nasapicoftheday.datamodel.Date;
 import com.example.nasapicoftheday.datamodel.Image;
 
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class ImageDao {
             String imageId = results.getString(idColIndex);
             String imageName = results.getString(nameColIndex);
             String imageTitle = results.getString(titleColIndex);
-            CustomDate imageDownloadDate = new CustomDate(results.getString(downloadDateColIndex));
-            CustomDate imageDate =  new CustomDate(results.getString(imageDateColIndex));
+            Date imageDownloadDate = new Date(results.getString(downloadDateColIndex));
+            Date imageDate =  new Date(results.getString(imageDateColIndex));
             String imageFileName = results.getString(fileNameColIndex);
 
             images.add(new Image(UUID.fromString(imageId), imageName, imageTitle, imageDownloadDate, imageDate, imageFileName));

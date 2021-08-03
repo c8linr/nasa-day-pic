@@ -1,7 +1,6 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
@@ -18,7 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.example.nasapicoftheday.datamodel.CustomDate;
+import com.example.nasapicoftheday.datamodel.Date;
 import com.example.nasapicoftheday.R;
 import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
@@ -67,55 +66,28 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         DialogFragment dateFragment = new DatePickerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.setFragmentResultListener(DatePickerFragment.DATE_REQUEST_KEY, this, (requestKey, result) -> {
-            int year = result.getInt(CustomDate.YEAR_KEY);
-            int month = result.getInt(CustomDate.MONTH_KEY);
-            int day = result.getInt(CustomDate.DAY_KEY);
-            CustomDate date = new CustomDate(year, month, day);
-            String dateString = " " + getMonthName(month) +
-                    " " + day +
-                    ", " + year;
-            dateSelected.setText(getString(R.string.new_selected_date) + dateString);
-            confirmDateButton.setEnabled(true);
-            goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
+            int year = result.getInt(Date.YEAR_KEY);
+            int month = result.getInt(Date.MONTH_KEY);
+            int day = result.getInt(Date.DAY_KEY);
+            try{
+                Date date = new Date(year, month, day);
+                String dateString = getString(R.string.new_selected_date) +
+                        " " + Date.getMonthName(month) +
+                        " " + day +
+                        ", " + year;
+                dateSelected.setText(dateString);
+                confirmDateButton.setEnabled(true);
+                goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
+            } catch (IllegalArgumentException e) {
+                // This is reached if the date is invalid
+                dateSelected.setText(getString(R.string.new_date_error));
+                confirmDateButton.setEnabled(false);
+            }
         });
         selectDateButton.setOnClickListener( (click) -> dateFragment.show(fragmentManager, "datePicker"));
     }
 
-    /**
-     * Returns the name of the month, given an integer from 0-11.
-     *
-     * @param month an integer from 0-11 representing a month
-     * @return the full name of the month, capitalized, or a blank string if the argument is invalid
-     */
-    private String getMonthName(int month) {
-        switch (month) {
-            case 0:
-                return "January";
-            case 1:
-                return "February";
-            case 2:
-                return "March";
-            case 3:
-                return "April";
-            case 4:
-                return "May";
-            case 5:
-                return "June";
-            case 6:
-                return "July";
-            case 7:
-                return "August";
-            case 8:
-                return "September";
-            case 9:
-                return "October";
-            case 10:
-                return "November";
-            case 11:
-                return "December";
-        }
-        return "";
-    }
+
 
     /**
      * Inflates the toolbar's layout.
@@ -194,7 +166,8 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
           */
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            CustomDate date = new CustomDate(year, (month + 1), dayOfMonth);
+            // Need to adjust month up by one, since the Date Picker uses 0-11
+            Date date = new Date(year, (month + 1), dayOfMonth);
             getParentFragmentManager().setFragmentResult(DATE_REQUEST_KEY, date.getBundle());
         }
     }

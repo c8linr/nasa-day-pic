@@ -20,9 +20,9 @@ public class Image {
     /** The title of the image assigned by NASA */
     private final String title;
     /** The date the image was downloaded to disk */
-    private final CustomDate downloadDate;
+    private final Date downloadDate;
     /** The date the image was NASA's Image of the Day */
-    private final CustomDate imageDate;
+    private final Date imageDate;
     /** The name of the file on disk containing the image */
     private final String fileName;
     /** The Bitmap with the actual image */
@@ -44,7 +44,7 @@ public class Image {
      * @param imageDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
+    public Image(String title, Date downloadDate, Date imageDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = UUID.randomUUID();
         this.name = null;
@@ -65,7 +65,7 @@ public class Image {
      * @param imageDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(UUID id, String name, String title, CustomDate downloadDate, CustomDate imageDate, String fileName)
+    public Image(UUID id, String name, String title, Date downloadDate, Date imageDate, String fileName)
             throws IllegalFileExtensionException {
         this.id = id;
         this.name = name;
@@ -85,8 +85,8 @@ public class Image {
         id = UUID.fromString(bundle.getString(ID_KEY));
         name = bundle.getString(NAME_KEY);
         title = bundle.getString(TITLE_KEY);
-        downloadDate = new CustomDate(bundle.getString(DL_DATE_KEY));
-        imageDate = new CustomDate(bundle.getString(NASA_DATE_KEY));
+        downloadDate = new Date(bundle.getString(DL_DATE_KEY));
+        imageDate = new Date(bundle.getString(NASA_DATE_KEY));
         fileName = bundle.getString(FILE_NAME_KEY);
     }
 
@@ -121,14 +121,14 @@ public class Image {
      *
      * @return the date the image was downloaded
      */
-    public CustomDate getDownloadDate() { return downloadDate; }
+    public Date getDownloadDate() { return downloadDate; }
 
     /**
      * Returns the date the image was NASA's Image of the Day.
      *
      * @return the date the image was Image of the Day
      */
-    public CustomDate getImageDate() { return imageDate; }
+    public Date getImageDate() { return imageDate; }
 
     /**
      * Returns the file name where the image is stored on disk.

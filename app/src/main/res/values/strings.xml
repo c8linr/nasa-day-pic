@@ -31,6 +31,7 @@
     <string name="new_select_date_button">Select Date</string>
     <string name="new_selected_date">Date Selected:</string>
     <string name="new_confirm_button">Confirm Download</string>
+    <string name="new_date_error">Sorry, that date is invalid.</string>
     <string name="new_image_help_title">New Image Help</string>
     <string name="new_image_help_msg">To download a new NASA Image of the Day, select the date that the image was Image of the Day, then click the \"Confirm Download\" button.</string>
     <string name="download_progress_label">Download in progress…</string>

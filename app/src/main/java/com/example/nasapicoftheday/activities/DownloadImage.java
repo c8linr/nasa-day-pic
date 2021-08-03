@@ -1,7 +1,6 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nasapicoftheday.dao.ImageDao;
-import com.example.nasapicoftheday.datamodel.CustomDate;
+import com.example.nasapicoftheday.datamodel.Date;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
 import com.example.nasapicoftheday.menus.Activity;
@@ -68,7 +67,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
 
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
-        CustomDate date = new CustomDate(dateBundle);
+        Date date = new Date(dateBundle);
 
         // Create a query to download the image for the provided date
         ImageQuery query = new ImageQuery(this);
@@ -115,7 +114,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
     /**
      * The ImageRequest class handles the background API call to NASA.
      */
-    static class ImageQuery extends AsyncTask<CustomDate, Integer, Image> {
+    static class ImageQuery extends AsyncTask<Date, Integer, Image> {
         /** The Activity calling the AsyncTask */
         @SuppressLint("StaticFieldLeak")
         private final AppCompatActivity parentActivity;
@@ -136,7 +135,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
          * @return the downloaded image
          */
         @Override
-        protected Image doInBackground(CustomDate... dates) {
+        protected Image doInBackground(Date... dates) {
             Image newImage = null;
 
             // Update the progress
@@ -178,7 +177,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
                 outputStream.close();
 
                 // Make a new Image object
-                newImage = new Image(imageTitle, new CustomDate(), dates[0], imageFile);
+                newImage = new Image(imageTitle, new Date(), dates[0], imageFile);
 
                 // Update the progress
                 publishProgress(100);
@@ -262,7 +261,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
          * @return a JSONObject containing the relevant information about the Image of the Day
          * @throws Exception if something goes wrong
          */
-        private JSONObject getJSONFromURL(CustomDate date) throws Exception {
+        private JSONObject getJSONFromURL(Date date) throws Exception {
             InputStream response = null;
             HttpURLConnection connection = null;
             BufferedReader reader = null;
