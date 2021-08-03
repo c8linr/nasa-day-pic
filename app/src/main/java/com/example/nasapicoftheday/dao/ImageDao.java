@@ -56,6 +56,13 @@ public class ImageDao {
         return images;
     }
 
+    /**
+     * Determines if the given date matches an image already in the database.
+     *
+     * @param date the date to check for in the database
+     * @param context the parent context
+     * @return true if the date matches an existing image
+     */
     public boolean exists(Date date, Context context) {
         ImageOpener opener = new ImageOpener(context);
         SQLiteDatabase database = opener.getWritableDatabase();

@@ -20,13 +20,11 @@ import android.widget.TextView;
 import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.Date;
 import com.example.nasapicoftheday.R;
-import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * The NewImage class contains the functionality for the New Image Activity.

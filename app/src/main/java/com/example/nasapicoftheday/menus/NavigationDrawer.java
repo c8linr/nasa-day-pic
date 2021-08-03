@@ -1,5 +1,6 @@
 package com.example.nasapicoftheday.menus;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.MenuItem;
 
@@ -24,6 +25,7 @@ public class NavigationDrawer {
      * @param item the menu item selected
      * @param parentActivity a reference to the activity that called this method
      */
+    @SuppressLint("NonConstantResourceId")
     public static void navigate(MenuItem item, AppCompatActivity parentActivity, Activity calledBy) {
         switch (item.getItemId()) {
             case R.id.drawer_welcome_button:
