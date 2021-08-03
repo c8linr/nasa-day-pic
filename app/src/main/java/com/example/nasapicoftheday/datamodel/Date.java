@@ -105,7 +105,7 @@ public class Date {
      * @return true if the year, month, and day are the same
      */
     public boolean equals(Date d) {
-        return ((d.year == this.year) && (d.month == this.month) && (d.day == this.day));
+        return ((d.year.equals(this.year)) && (d.month.equals(this.month)) && (d.day.equals(this.day)));
     }
 
     /**
