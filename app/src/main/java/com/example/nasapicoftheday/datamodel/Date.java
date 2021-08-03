@@ -99,6 +99,16 @@ public class Date {
     }
 
     /**
+     * Determines if the dates match.
+     *
+     * @param d the date to compare
+     * @return true if the year, month, and day are the same
+     */
+    public boolean equals(Date d) {
+        return ((d.year == this.year) && (d.month == this.month) && (d.day == this.day));
+    }
+
+    /**
      * Returns a String representation of this CustomDate object (YYYY-MM-DD).
      *
      * @return the date as a String (YYYY-MM-DD)
