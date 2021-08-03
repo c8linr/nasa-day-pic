@@ -3,6 +3,8 @@ package com.example.nasapicoftheday.menus;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,6 +69,11 @@ public class NavigationDrawer {
 
         NavigationView navigationView = parentActivity.findViewById(R.id.drawer_view);
         navigationView.setNavigationItemSelectedListener(navListener);
+
+        // Set the activity name in the navigation header
+        View headerView = navigationView.getHeaderView(0);
+        TextView activityName = headerView.findViewById(R.id.nav_header_activity_name);
+        activityName.setText(calledBy.getActivityName(parentActivity));
     }
 
 

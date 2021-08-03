@@ -1,20 +1,35 @@
 package com.example.nasapicoftheday.menus;
 
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.nasapicoftheday.R;
 
 /**
- * The CallingActivity enum represents the possible activities that can use the navigation drawer.
+ * The ctivity enum represents the possible activities that can use the navigation drawer.
  */
 public enum Activity {
-    MAIN(R.id.main_drawer_layout, R.string.welcome_help_title, R.string.welcome_help_msg),
-    NEW(R.id.new_image_drawer_layout, R.string.new_image_help_title, R.string.new_image_help_msg),
-    DOWNLOAD(R.id.download_image_drawer_layout, R.string.download_image_help_title, R.string.download_image_help_msg),
-    SAVED(R.id.saved_images_drawer_layout, R.string.saved_images_help_title, R.string.saved_images_help_msg);
+    MAIN(R.id.main_drawer_layout,
+            R.string.drawer_header_welcome,
+            R.string.welcome_help_title,
+            R.string.welcome_help_msg),
+    NEW(R.id.new_image_drawer_layout,
+            R.string.drawer_header_new_image,
+            R.string.new_image_help_title,
+            R.string.new_image_help_msg),
+    DOWNLOAD(R.id.download_image_drawer_layout,
+            R.string.drawer_header_download_image,
+            R.string.download_image_help_title,
+            R.string.download_image_help_msg),
+    SAVED(R.id.saved_images_drawer_layout,
+            R.string.drawer_header_saved_images,
+            R.string.saved_images_help_title,
+            R.string.saved_images_help_msg);
 
     private final int drawerLayoutID;
+    private final int drawerActivityNameID;
     private final int helpTitleStringID;
     private final int helpMessageStringID;
 
@@ -25,8 +40,9 @@ public enum Activity {
      * @param helpTitleStringID the resource ID associated with the help dialog title
      * @param helpMessageStringID the resource ID associated with the help dialog message
      */
-    Activity(int drawerLayoutID, int helpTitleStringID, int helpMessageStringID) {
+    Activity(int drawerLayoutID, int drawerActivityNameID, int helpTitleStringID, int helpMessageStringID) {
         this.drawerLayoutID = drawerLayoutID;
+        this.drawerActivityNameID = drawerActivityNameID;
         this.helpTitleStringID = helpTitleStringID;
         this.helpMessageStringID = helpMessageStringID;
     }
@@ -35,10 +51,20 @@ public enum Activity {
      * Returns the DrawerLayout widget.
      *
      * @param parent the activity calling this method
-     * @return the DrawerLayout widget associated with this CallingActivity
+     * @return the DrawerLayout widget associated with this Activity
      */
     public DrawerLayout getLayout(AppCompatActivity parent) {
         return parent.findViewById(drawerLayoutID);
+    }
+
+    /**
+     * Returns the String containing the name of the activity.
+     *
+     * @param parent the activity calling this method
+     * @return a String containing the name of the activity
+     */
+    public String getActivityName(AppCompatActivity parent) {
+        return parent.getString(drawerActivityNameID);
     }
 
     /**
