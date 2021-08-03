@@ -50,7 +50,7 @@ public class NavigationDrawer {
      * @param parentActivity the AppCompatActivity that called the method
      * @param navListener the OnNavigationItemSelectedListener that called the method
      * @param toolbar the toolbar containing the drawer
-     * @param calledBy the Activities enum matching the calling Activity
+     * @param calledBy the Activity enum matching the calling Activity
      */
     public static void init(AppCompatActivity parentActivity,
                             NavigationView.OnNavigationItemSelectedListener navListener,

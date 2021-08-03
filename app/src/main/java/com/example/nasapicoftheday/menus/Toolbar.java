@@ -11,8 +11,18 @@ import com.example.nasapicoftheday.activities.MainActivity;
 import com.example.nasapicoftheday.activities.NewImage;
 import com.example.nasapicoftheday.activities.SavedImages;
 
+/**
+ * The Toolbar class is used to keep the navigation logic in one place.
+ */
 public class Toolbar {
 
+    /**
+     * Directs the user to the appropriate activity.
+     *
+     * @param item the menu item that was clicked
+     * @param parentActivity the activity calling this method
+     * @param calledBy the Activity enum matching the calling activity
+     */
     public static void navigate(MenuItem item, AppCompatActivity parentActivity, Activity calledBy) {
         switch (item.getItemId()) {
             case R.id.menu_welcome:
