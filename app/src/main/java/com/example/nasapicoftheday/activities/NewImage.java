@@ -17,13 +17,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.Date;
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * The NewImage class contains the functionality for the New Image Activity.
@@ -65,22 +68,32 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         Button selectDateButton = findViewById(R.id.new_select_date_button);
         DialogFragment dateFragment = new DatePickerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Get the result from the date picker dialog and update the GUI
         fragmentManager.setFragmentResultListener(DatePickerFragment.DATE_REQUEST_KEY, this, (requestKey, result) -> {
             int year = result.getInt(Date.YEAR_KEY);
             int month = result.getInt(Date.MONTH_KEY);
             int day = result.getInt(Date.DAY_KEY);
+
             try{
                 Date date = new Date(year, month, day);
-                String dateString = getString(R.string.new_selected_date) +
-                        " " + Date.getMonthName(month) +
-                        " " + day +
-                        ", " + year;
-                dateSelected.setText(dateString);
-                confirmDateButton.setEnabled(true);
-                goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
+                // Check if the image for that date has already been downloaded
+                ImageDao dao = new ImageDao();
+                if(!dao.exists(date, this)) {
+                    String dateString = getString(R.string.new_selected_date) +
+                            " " + Date.getMonthName(month) +
+                            " " + day +
+                            ", " + year;
+                    dateSelected.setText(dateString);
+                    confirmDateButton.setEnabled(true);
+                    goToDownloadImage.putExtra(DATE_BUNDLE_KEY, date.getBundle());
+                } else {
+                    dateSelected.setText(getString(R.string.new_date_exists_error));
+                    confirmDateButton.setEnabled(false);
+                }
             } catch (IllegalArgumentException e) {
                 // This is reached if the date is invalid
-                dateSelected.setText(getString(R.string.new_date_error));
+                dateSelected.setText(getString(R.string.new_invalid_date_error));
                 confirmDateButton.setEnabled(false);
             }
         });

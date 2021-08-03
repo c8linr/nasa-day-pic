@@ -56,6 +56,28 @@ public class ImageDao {
         return images;
     }
 
+    public boolean exists(Date date, Context context) {
+        ImageOpener opener = new ImageOpener(context);
+        SQLiteDatabase database = opener.getWritableDatabase();
+        String[] columns = {ImageOpener.COL_IMAGE_DATE};
+        Cursor results = database.query(false, ImageOpener.TABLE, columns,
+                null, null, null, null, null, null);
+        int imageDateColIndex = results.getColumnIndex(ImageOpener.COL_IMAGE_DATE);
+
+        while(results.moveToNext()) {
+            Date imageDate =  new Date(results.getString(imageDateColIndex));
+            if(imageDate.equals(date)) {
+                return true;
+            }
+        }
+
+        results.close();
+        database.close();
+        opener.close();
+
+        return false;
+    }
+
     /**
      * Saves an Image object to the database.
      *
