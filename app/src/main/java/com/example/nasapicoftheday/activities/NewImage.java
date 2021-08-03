@@ -158,13 +158,20 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Get the current date to use as the default
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            final Calendar today = Calendar.getInstance();
+            int year = today.get(Calendar.YEAR);
+            int month = today.get(Calendar.MONTH);
+            int day = today.get(Calendar.DAY_OF_MONTH);
+
+            // Set the min/max dates
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+            dialog.getDatePicker().setMaxDate(today.getTimeInMillis());
+            Calendar minDate = Calendar.getInstance();
+            minDate.set(1995, 5, 16);
+            dialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
 
             // return a new instance of DatePickerDialog, using the current date
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return dialog;
         }
 
          /**
