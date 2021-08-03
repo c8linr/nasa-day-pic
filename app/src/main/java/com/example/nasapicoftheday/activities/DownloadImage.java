@@ -130,7 +130,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this);
+        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.DOWNLOAD);
         return false;
     }
 

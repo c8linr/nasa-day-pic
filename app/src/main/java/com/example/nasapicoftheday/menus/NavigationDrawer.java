@@ -24,7 +24,7 @@ public class NavigationDrawer {
      * @param item the menu item selected
      * @param parentActivity a reference to the activity that called this method
      */
-    public static void navigate(MenuItem item, AppCompatActivity parentActivity) {
+    public static void navigate(MenuItem item, AppCompatActivity parentActivity, CallingActivity calledBy) {
         switch (item.getItemId()) {
             case R.id.drawer_welcome_button:
                 Intent goToWelcome = new Intent(parentActivity, MainActivity.class);
@@ -40,7 +40,7 @@ public class NavigationDrawer {
                 break;
         }
 
-        DrawerLayout drawerLayout = parentActivity.findViewById(R.id.main_drawer_layout);
+        DrawerLayout drawerLayout = calledBy.getLayout(parentActivity);
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 

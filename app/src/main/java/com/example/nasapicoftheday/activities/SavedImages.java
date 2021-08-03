@@ -136,7 +136,7 @@ public class SavedImages extends AppCompatActivity implements NavigationView.OnN
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this);
+        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.SAVED);
         return false;
     }
 

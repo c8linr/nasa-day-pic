@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this);
+        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.MAIN);
         return false;
     }
 }

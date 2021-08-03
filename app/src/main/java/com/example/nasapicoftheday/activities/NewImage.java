@@ -172,7 +172,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this);
+        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.NEW);
         return false;
     }
 
@@ -216,7 +216,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
           */
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            CustomDate date = new CustomDate(year, month, dayOfMonth);
+            CustomDate date = new CustomDate(year, (month + 1), dayOfMonth);
             getParentFragmentManager().setFragmentResult(DATE_REQUEST_KEY, date.getBundle());
         }
     }
