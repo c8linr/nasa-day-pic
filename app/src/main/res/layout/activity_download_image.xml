@@ -25,7 +25,8 @@
             android:id="@+id/download_progress_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="40sp"
+            android:layout_weight="1"
+            android:paddingVertical="30sp"
             android:gravity="center"
             android:text="@string/download_progress_label"/>
 
@@ -33,21 +34,26 @@
             android:id="@+id/download_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:paddingVertical="10sp"
             style="?android:attr/progressBarStyleHorizontal" />
 
         <ImageView
             android:id="@+id/download_image"
-            android:layout_width="260sp"
-            android:layout_height="260sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="10"
+            android:maxHeight="500sp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/default_image_desc"/>
 
         <TextView
             android:id="@+id/download_name_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="40sp"
+            android:layout_weight="1"
+            android:layout_marginTop="40sp"
             android:labelFor="@id/download_image_name_field"
             android:textSize="18sp"
             android:text="@string/download_name_image"/>
@@ -56,6 +62,7 @@
             android:id="@+id/download_image_name_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:autofillHints="imageName"
             android:inputType="text"
             android:text="@string/download_image_name_field" />
@@ -64,6 +71,7 @@
             android:id="@+id/download_save_name_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:text="@string/download_save_name_button"
             android:enabled="false"/>

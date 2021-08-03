@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/activity_download_image.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/activity_empty.xml" value="0.23177083333333334" />
         <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/activity_new_image.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/activity_saved_images.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/drawer_header.xml" value="0.5" />
         <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/fragment_image.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Caitlin Riden/AndroidStudioProjects/nasa-day-pic/app/src/main/res/layout/image_list_item.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

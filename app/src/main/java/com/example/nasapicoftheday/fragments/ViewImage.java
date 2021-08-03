@@ -62,10 +62,15 @@ public class ViewImage extends Fragment {
 
         Button deleteButton = result.findViewById(R.id.fragment_delete_button);
         deleteButton.setOnClickListener( (click) -> {
+            // Delete the image
             ImageDao dao = new ImageDao();
             dao.deleteImage(imageObject, parentActivity);
+            // Show the Snackbar to undo the deletion
             Snackbar.make(imageView, R.string.fragment_delete_msg, Snackbar.LENGTH_LONG)
                     .setAction(R.string.fragment_undo_delete, (c) -> dao.saveImage(imageObject, parentActivity)).show();
+            // Go back to the Saved Images activity
+            Intent backToSavedImages = new Intent(parentActivity.getBaseContext(), SavedImages.class);
+            parentActivity.startActivity(backToSavedImages);
             });
 
         return result;
