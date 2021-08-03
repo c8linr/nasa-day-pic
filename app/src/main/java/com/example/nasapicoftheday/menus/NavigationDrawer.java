@@ -24,7 +24,7 @@ public class NavigationDrawer {
      * @param item the menu item selected
      * @param parentActivity a reference to the activity that called this method
      */
-    public static void navigate(MenuItem item, AppCompatActivity parentActivity, CallingActivity calledBy) {
+    public static void navigate(MenuItem item, AppCompatActivity parentActivity, Activity calledBy) {
         switch (item.getItemId()) {
             case R.id.drawer_welcome_button:
                 Intent goToWelcome = new Intent(parentActivity, MainActivity.class);
@@ -52,10 +52,10 @@ public class NavigationDrawer {
      * @param toolbar the toolbar containing the drawer
      * @param calledBy the Activities enum matching the calling Activity
      */
-    public static void setUp(AppCompatActivity parentActivity,
-                             NavigationView.OnNavigationItemSelectedListener navListener,
-                             androidx.appcompat.widget.Toolbar toolbar,
-                             CallingActivity calledBy) {
+    public static void init(AppCompatActivity parentActivity,
+                            NavigationView.OnNavigationItemSelectedListener navListener,
+                            androidx.appcompat.widget.Toolbar toolbar,
+                            Activity calledBy) {
 
         DrawerLayout drawerLayout = calledBy.getLayout(parentActivity);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(parentActivity, drawerLayout,
@@ -67,29 +67,5 @@ public class NavigationDrawer {
         navigationView.setNavigationItemSelectedListener(navListener);
     }
 
-    /**
-     * The CallingActivity enum represents the possible activities that can use the navigation drawer
-     */
-    public enum CallingActivity {
-        MAIN(R.id.main_drawer_layout),
-        NEW(R.id.new_image_drawer_layout),
-        DOWNLOAD(R.id.download_image_drawer_layout),
-        SAVED(R.id.saved_images_drawer_layout);
 
-        private final int drawerLayoutID;
-
-        /**
-         * Constructor, initializes the ID of the relevant DrawerLayout
-         *
-         * @param id the resource ID associated with the DrawerLayout that will be initialized
-         */
-        CallingActivity(int id) {
-            drawerLayoutID = id;
-        }
-
-        // Accessor
-        public DrawerLayout getLayout(AppCompatActivity parent) {
-            return parent.findViewById(drawerLayoutID);
-        }
-    }
 }

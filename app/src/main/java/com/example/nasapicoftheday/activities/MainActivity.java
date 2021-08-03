@@ -1,7 +1,6 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         // Set up the navigation drawer
-        NavigationDrawer.setUp(this, this, toolbar, NavigationDrawer.CallingActivity.MAIN);
+        NavigationDrawer.init(this, this, toolbar, Activity.MAIN);
 
         // Pressing the "new image" button takes the user to the New Image activity
         Button newImageButton = findViewById(R.id.welcome_new_button);
@@ -125,34 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Directs the user to the correct activity when an option from the toolbar is selected.
+     * Delegates the navigation logic to the local Toolbar class.
      *
      * @param item the menu item selected
      * @return true
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_welcome:
-                Intent goToWelcome = new Intent(this, MainActivity.class);
-                startActivity(goToWelcome);
-                break;
-            case R.id.menu_help:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.welcome_help_title);
-                alertDialogBuilder.setMessage(R.string.welcome_help_msg);
-                alertDialogBuilder.setNeutralButton(R.string.help_close, (click, arg) -> { });
-                alertDialogBuilder.create().show();
-                break;
-            case R.id.menu_new_image:
-                Intent goToNewImage = new Intent(this, NewImage.class);
-                startActivity(goToNewImage);
-                break;
-            case R.id.menu_saved_images:
-                Intent goToSavedImages = new Intent(this, SavedImages.class);
-                startActivity(goToSavedImages);
-                break;
-        }
+        com.example.nasapicoftheday.menus.Toolbar.navigate(item, this, Activity.MAIN);
         return true;
     }
 
@@ -164,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.MAIN);
+        NavigationDrawer.navigate(item, this, Activity.MAIN);
         return false;
     }
 }

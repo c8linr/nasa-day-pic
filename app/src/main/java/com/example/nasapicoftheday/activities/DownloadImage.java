@@ -1,12 +1,9 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,6 +26,7 @@ import com.example.nasapicoftheday.dao.ImageDao;
 import com.example.nasapicoftheday.datamodel.CustomDate;
 import com.example.nasapicoftheday.datamodel.Image;
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -66,7 +64,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
 
         // Set up the navigation drawer
-        NavigationDrawer.setUp(this, this, toolbar, NavigationDrawer.CallingActivity.DOWNLOAD);
+        NavigationDrawer.init(this, this, toolbar, Activity.DOWNLOAD);
 
         // Get the Bundle with the date info
         Bundle dateBundle = this.getIntent().getBundleExtra(NewImage.DATE_BUNDLE_KEY);
@@ -98,27 +96,7 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_welcome:
-                Intent goToWelcome = new Intent(this, MainActivity.class);
-                startActivity(goToWelcome);
-                break;
-            case R.id.menu_help:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.download_image_help_title);
-                alertDialogBuilder.setMessage(R.string.download_image_help_msg);
-                alertDialogBuilder.setNeutralButton(R.string.help_close, (click, arg) -> { });
-                alertDialogBuilder.create().show();
-                break;
-            case R.id.menu_new_image:
-                Intent goToNewImage = new Intent(this, NewImage.class);
-                startActivity(goToNewImage);
-                break;
-            case R.id.menu_saved_images:
-                Intent goToSavedImages = new Intent(this, SavedImages.class);
-                startActivity(goToSavedImages);
-                break;
-        }
+        com.example.nasapicoftheday.menus.Toolbar.navigate(item, this, Activity.DOWNLOAD);
         return true;
     }
 
@@ -126,11 +104,11 @@ public class DownloadImage extends AppCompatActivity implements NavigationView.O
      * Delegates the navigation logic to the NavigationDrawer class.
      *
      * @param item the menu item selected
-     * @return true
+     * @return false
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.DOWNLOAD);
+        NavigationDrawer.navigate(item, this, Activity.DOWNLOAD);
         return false;
     }
 

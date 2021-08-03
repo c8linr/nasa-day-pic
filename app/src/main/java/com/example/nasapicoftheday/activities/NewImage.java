@@ -1,12 +1,9 @@
 package com.example.nasapicoftheday.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -23,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.nasapicoftheday.datamodel.CustomDate;
 import com.example.nasapicoftheday.R;
+import com.example.nasapicoftheday.menus.Activity;
 import com.example.nasapicoftheday.menus.NavigationDrawer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -52,7 +50,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
         setSupportActionBar(toolbar);
 
         // Set up the navigation drawer
-        NavigationDrawer.setUp(this, this, toolbar, NavigationDrawer.CallingActivity.NEW);
+        NavigationDrawer.init(this, this, toolbar, Activity.NEW);
 
         // Get a reference to the "Date Selected: " TextView to be modified by the Date Picker
         TextView dateSelected = findViewById(R.id.new_date);
@@ -140,27 +138,7 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_welcome:
-                Intent goToWelcome = new Intent(this, MainActivity.class);
-                startActivity(goToWelcome);
-                break;
-            case R.id.menu_help:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.new_image_help_title);
-                alertDialogBuilder.setMessage(R.string.new_image_help_msg);
-                alertDialogBuilder.setNeutralButton(R.string.help_close, (click, arg) -> { });
-                alertDialogBuilder.create().show();
-                break;
-            case R.id.menu_new_image:
-                Intent goToNewImage = new Intent(this, NewImage.class);
-                startActivity(goToNewImage);
-                break;
-            case R.id.menu_saved_images:
-                Intent goToSavedImages = new Intent(this, SavedImages.class);
-                startActivity(goToSavedImages);
-                break;
-        }
+        com.example.nasapicoftheday.menus.Toolbar.navigate(item, this, Activity.NEW);
         return true;
     }
 
@@ -168,11 +146,11 @@ public class NewImage extends AppCompatActivity implements NavigationView.OnNavi
      * Delegates the navigation logic to the NavigationDrawer class.
      *
      * @param item the menu item selected
-     * @return true
+     * @return false
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationDrawer.navigate(item, this, NavigationDrawer.CallingActivity.NEW);
+        NavigationDrawer.navigate(item, this, Activity.NEW);
         return false;
     }
 
