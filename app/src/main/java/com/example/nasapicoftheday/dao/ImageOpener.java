@@ -15,11 +15,10 @@ public class ImageOpener extends SQLiteOpenHelper {
     private final static String DATABASE_NAME = "ImageDB";
     private final static int VERSION_NUM = 1;
     public final static String TABLE = "SAVED_IMAGES";
-    public final static String COL_ID = "IMAGE_ID";
+    public final static String COL_NASA_DATE = "NASA_DATE";
     public final static String COL_FILE_NAME = "FILE_PATH";
     public final static String COL_NAME = "GIVEN_NAME";
     public final static String COL_TITLE = "PHOTO_TITLE";
-    public final static String COL_IMAGE_DATE = "IMAGE_DATE";
     public final static String COL_DOWNLOAD_DATE = "DOWNLOAD_DATE";
 
     /**
@@ -39,11 +38,10 @@ public class ImageOpener extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE +
-                " (" + COL_ID + " text PRIMARY KEY, " +
+                " (" + COL_NASA_DATE + " text PRIMARY KEY, " +
                 COL_FILE_NAME + " text, " +
                 COL_NAME + " text, " +
                 COL_TITLE + " text, " +
-                COL_IMAGE_DATE + " text, " +
                 COL_DOWNLOAD_DATE + " text)");
     }
 

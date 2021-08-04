@@ -15,8 +15,6 @@ import java.util.UUID;
  * @author Caitlin Ross
  */
 public class Image {
-    /** A unique ID assigned to the image */
-    private final UUID id;
     /** The user-defined name of the image */
     private String name;
     /** The title of the image assigned by NASA */
@@ -31,7 +29,6 @@ public class Image {
     private Bitmap imageRaster;
 
     /** Static constants used for loading/extracting data from a Bundle */
-    public static final String ID_KEY = "ImageID";
     public static final String NAME_KEY = "ImageName";
     public static final String TITLE_KEY = "ImageTitle";
     public static final String DL_DATE_KEY = "DownloadDate";
@@ -48,7 +45,6 @@ public class Image {
      */
     public Image(String title, Date downloadDate, Date nasaDate, String fileName)
             throws IllegalFileExtensionException {
-        this.id = UUID.randomUUID();
         this.name = null;
         this.title = title;
         this.downloadDate = downloadDate;
@@ -60,16 +56,14 @@ public class Image {
     /**
      * Constructor used when loading an Image from the database into memory.
      *
-     * @param id the unique internal ID of the image
      * @param name the user-provided name of the image
      * @param title the title of the image as provided by NASA
      * @param downloadDate the date the image was downloaded
      * @param nasaDate the date the image was Image of the Day
      * @param fileName the name of the JPEG file
      */
-    public Image(UUID id, String name, String title, Date downloadDate, Date nasaDate, String fileName)
+    public Image(String name, String title, Date downloadDate, Date nasaDate, String fileName)
             throws IllegalFileExtensionException {
-        this.id = id;
         this.name = name;
         this.title = title;
         this.downloadDate = downloadDate;
@@ -84,20 +78,12 @@ public class Image {
      * @param bundle the Bundle with the Image data
      */
     public Image(Bundle bundle) {
-        id = UUID.fromString(bundle.getString(ID_KEY));
         name = bundle.getString(NAME_KEY);
         title = bundle.getString(TITLE_KEY);
         downloadDate = new Date(bundle.getString(DL_DATE_KEY));
         nasaDate = new Date(bundle.getString(NASA_DATE_KEY));
         fileName = bundle.getString(FILE_NAME_KEY);
     }
-
-    /**
-     * Returns the image's unique ID.
-     *
-     * @return the image's ID
-     */
-    public UUID getId() { return id; }
 
     /**
      * If there is a user-defined name, returns it, otherwise, returns the NASA-determined title.
@@ -168,7 +154,6 @@ public class Image {
     public Bundle getBundle() {
         Bundle b = new Bundle();
 
-        b.putString(ID_KEY, id.toString());
         b.putString(NAME_KEY, name);
         b.putString(TITLE_KEY, title);
         b.putString(DL_DATE_KEY, downloadDate.toString());
